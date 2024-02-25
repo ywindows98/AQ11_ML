@@ -24,22 +24,16 @@ namespace AlphaAQ11
             {
                 case Temperature.Normal:
                     return Temperature.NotNormal;
-                    break;
                 case Temperature.High:
                     return Temperature.NotHigh;
-                    break;
                 case Temperature.VeryHigh:
                     return Temperature.NotVeryHigh;
-                    break;
                 case Temperature.NotNormal:
-                    return Temperature.Normal;
-                    break;
+                    return Temperature.Normal; 
                 case Temperature.NotHigh:
                     return Temperature.High;
-                    break;
                 //case Temperature.NotVeryHigh:
                 //    return Temperature.VeryHigh;
-                //    break;
                 default:
                     return Temperature.VeryHigh;       
             }
