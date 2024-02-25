@@ -36,8 +36,9 @@ namespace AlphaAQ11
                     negativeSet.Add(new Case(i + 1, temperatureList[i], headacheList[i], nauseaList[i], decisionFluList[i]));
                 }
             }
-            
+
             // positiveSet[0] will be the seed
+
 
 
         }
