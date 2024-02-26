@@ -39,8 +39,14 @@ namespace AlphaAQ11
 
             // positiveSet[0] will be the seed
 
+            PartialStar OneToThird = new PartialStar(positiveSet[0], negativeSet[0]);
+            Console.WriteLine(OneToThird);
 
+            PartialStar OneToFifth = new PartialStar(positiveSet[0], negativeSet[1]);
+            Console.WriteLine(OneToFifth);
 
+            PartialStar OneToSixth = new PartialStar(positiveSet[0], negativeSet[2]);
+            Console.WriteLine(OneToSixth);
         }
     }
 }
