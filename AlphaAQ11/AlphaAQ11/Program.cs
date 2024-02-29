@@ -10,6 +10,20 @@ namespace AlphaAQ11
     internal class Program
     {
 
+        static bool ContainsStar(List<PartialStar> set, PartialStar star)
+        {
+            foreach (PartialStar st in set)
+            {
+                if (st.IsSame(star))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         static List<PartialStar> ConjunctSetWithStar(List<PartialStar> set, PartialStar addingStar)
         {
             List<PartialStar> resultingSet = new List<PartialStar>();
@@ -21,7 +35,7 @@ namespace AlphaAQ11
                     if (addingStar.Temperature != null && star.Temperature == addingStar.Temperature)
                     {
                         tempStar = new PartialStar(star.Temperature, null, null);
-                        if (!resultingSet.Contains(tempStar))
+                        if (!ContainsStar(resultingSet, tempStar))
                         {
                             resultingSet.Add(tempStar);
                         }
@@ -30,7 +44,7 @@ namespace AlphaAQ11
                     if(addingStar.Headache != null)
                     {
                         tempStar = new PartialStar(star.Temperature, addingStar.Headache, null);
-                        if (!resultingSet.Contains(tempStar))
+                        if (!ContainsStar(resultingSet, tempStar))
                         {
                             resultingSet.Add(tempStar);
                         }
@@ -39,7 +53,7 @@ namespace AlphaAQ11
                     if (addingStar.Nausea != null)
                     {
                         tempStar = new PartialStar(star.Temperature, null, addingStar.Nausea);
-                        if (!resultingSet.Contains(tempStar))
+                        if (!ContainsStar(resultingSet, tempStar))
                         {
                             resultingSet.Add(tempStar);
                         }
@@ -51,17 +65,29 @@ namespace AlphaAQ11
                 {
                     if (addingStar.Temperature != null)
                     {
-                        resultingSet.Add(new PartialStar(addingStar.Temperature, star.Headache, null));
+                        tempStar = new PartialStar(addingStar.Temperature, star.Headache, null);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
 
                     if (addingStar.Headache != null && star.Headache == addingStar.Headache)
                     {
-                        resultingSet.Add(new PartialStar(null, star.Headache, null));
+                        tempStar = new PartialStar(null, star.Headache, null);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
 
                     if (addingStar.Nausea != null)
                     {
-                        resultingSet.Add(new PartialStar(null, star.Headache, addingStar.Nausea));
+                        tempStar = new PartialStar(null, star.Headache, addingStar.Nausea);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
                 }
 
@@ -70,17 +96,29 @@ namespace AlphaAQ11
                 {
                     if (addingStar.Temperature != null)
                     {
-                        resultingSet.Add(new PartialStar(addingStar.Temperature, null, star.Nausea));
+                        tempStar = new PartialStar(addingStar.Temperature, null, star.Nausea);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
 
                     if (addingStar.Headache != null)
                     {
-                        resultingSet.Add(new PartialStar(null, addingStar.Headache, star.Nausea));
+                        tempStar = new PartialStar(null, addingStar.Headache, star.Nausea);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
 
                     if (addingStar.Nausea != null && star.Nausea == addingStar.Nausea)
                     {
-                        resultingSet.Add(new PartialStar(null, null, star.Nausea));
+                        tempStar = new PartialStar(null, null, star.Nausea);
+                        if (!ContainsStar(resultingSet, tempStar))
+                        {
+                            resultingSet.Add(tempStar);
+                        }
                     }
                 }
             }
