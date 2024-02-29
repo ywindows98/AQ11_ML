@@ -24,103 +24,164 @@ namespace AlphaAQ11
         }
 
 
-        static List<PartialStar> ConjunctSetWithStar(List<PartialStar> set, PartialStar addingStar)
+        //static List<PartialStar> ConjunctSetWithStar(List<PartialStar> set, PartialStar addingStar)
+        //{
+        //    List<PartialStar> resultingSet = new List<PartialStar>();
+        //    PartialStar tempStar= null;
+        //    foreach (PartialStar star in set)
+        //    {
+        //        if(star.Temperature != null)
+        //        {
+        //            if (addingStar.Temperature != null && star.Temperature == addingStar.Temperature)
+        //            {
+        //                tempStar = new PartialStar(star.Temperature, null, null);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if(addingStar.Headache != null)
+        //            {
+        //                tempStar = new PartialStar(star.Temperature, addingStar.Headache, null);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if (addingStar.Nausea != null)
+        //            {
+        //                tempStar = new PartialStar(star.Temperature, null, addingStar.Nausea);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+        //        }
+
+
+        //        if (star.Headache != null)
+        //        {
+        //            if (addingStar.Temperature != null)
+        //            {
+        //                tempStar = new PartialStar(addingStar.Temperature, star.Headache, null);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if (addingStar.Headache != null && star.Headache == addingStar.Headache)
+        //            {
+        //                tempStar = new PartialStar(null, star.Headache, null);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if (addingStar.Nausea != null)
+        //            {
+        //                tempStar = new PartialStar(null, star.Headache, addingStar.Nausea);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+        //        }
+
+
+        //        if (star.Nausea != null)
+        //        {
+        //            if (addingStar.Temperature != null)
+        //            {
+        //                tempStar = new PartialStar(addingStar.Temperature, null, star.Nausea);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if (addingStar.Headache != null)
+        //            {
+        //                tempStar = new PartialStar(null, addingStar.Headache, star.Nausea);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+
+        //            if (addingStar.Nausea != null && star.Nausea == addingStar.Nausea)
+        //            {
+        //                tempStar = new PartialStar(null, null, star.Nausea);
+        //                if (!ContainsStar(resultingSet, tempStar))
+        //                {
+        //                    resultingSet.Add(tempStar);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return resultingSet;
+        //}
+
+
+        //static List<PartialStar> ConjunctSetWithStar(List<PartialStar> set, PartialStar addingStar)
+        //{
+        //    List<PartialStar> resultingSet = new List<PartialStar>();
+        //    PartialStar tempStar = null;
+        //    foreach (PartialStar star in set)
+        //    {
+        //        if (addingStar.Temperature != null)
+        //        {
+        //            if (star.Temperature == null)
+        //            {
+        //                tempStar = new PartialStar(addingStar.Temperature, star.Headache, star.Nausea);
+        //                resultingSet.Add(tempStar);
+        //            }
+        //            else
+        //            {
+        //                resultingSet.Add(star);
+        //            }
+        //        }
+
+        //        if(addingStar.Headache != null)
+        //        {
+        //            if(star.Headache == null)
+        //            {
+        //                tempStar = new PartialStar(star.Temperature, addingStar.Headache, star.Nausea);
+        //                resultingSet.Add(tempStar);
+        //            }
+        //            else
+        //            {
+        //                resultingSet.Add(star);
+        //            }
+        //        }
+
+        //        if (addingStar.Nausea != null)
+        //        {
+        //            if (star.Nausea == null)
+        //            {
+        //                tempStar = new PartialStar(star.Temperature, star.Headache, addingStar.Nausea);
+        //                resultingSet.Add(tempStar);
+        //            }
+        //            else
+        //            {
+        //                resultingSet.Add(star);
+        //            }
+        //        }
+        //    }
+        //    return resultingSet;
+        //}
+
+
+        static List<Conjunction> ConjunctSetWithStar(List<Conjunction> set, PartialStar addingStar)
         {
-            List<PartialStar> resultingSet = new List<PartialStar>();
-            PartialStar tempStar= null;
-            foreach (PartialStar star in set)
+            List<Conjunction> resultingSet = new List<Conjunction>();
+            Conjunction tempStar = null;
+            foreach (Conjunction star in set)
             {
-                if(star.Temperature != null)
-                {
-                    if (addingStar.Temperature != null && star.Temperature == addingStar.Temperature)
-                    {
-                        tempStar = new PartialStar(star.Temperature, null, null);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if(addingStar.Headache != null)
-                    {
-                        tempStar = new PartialStar(star.Temperature, addingStar.Headache, null);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if (addingStar.Nausea != null)
-                    {
-                        tempStar = new PartialStar(star.Temperature, null, addingStar.Nausea);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-                }
-
-
-                if (star.Headache != null)
-                {
-                    if (addingStar.Temperature != null)
-                    {
-                        tempStar = new PartialStar(addingStar.Temperature, star.Headache, null);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if (addingStar.Headache != null && star.Headache == addingStar.Headache)
-                    {
-                        tempStar = new PartialStar(null, star.Headache, null);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if (addingStar.Nausea != null)
-                    {
-                        tempStar = new PartialStar(null, star.Headache, addingStar.Nausea);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-                }
-
-
-                if (star.Nausea != null)
-                {
-                    if (addingStar.Temperature != null)
-                    {
-                        tempStar = new PartialStar(addingStar.Temperature, null, star.Nausea);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if (addingStar.Headache != null)
-                    {
-                        tempStar = new PartialStar(null, addingStar.Headache, star.Nausea);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-
-                    if (addingStar.Nausea != null && star.Nausea == addingStar.Nausea)
-                    {
-                        tempStar = new PartialStar(null, null, star.Nausea);
-                        if (!ContainsStar(resultingSet, tempStar))
-                        {
-                            resultingSet.Add(tempStar);
-                        }
-                    }
-                }
+                
             }
             return resultingSet;
         }
@@ -167,23 +228,28 @@ namespace AlphaAQ11
             PartialStar OneToSeventh = new PartialStar(positiveSet[0], negativeSet[3]);
             //Console.WriteLine(OneToSeventh);
 
-            List<PartialStar> set1 = new List<PartialStar>();
-            set1.Add(OneToThird);
+            List<Conjunction> set1 = new List<Conjunction>();
+            set1.Add(new Conjunction(OneToThird.Temperature, null, null));
+            set1.Add(new Conjunction(null, OneToThird.Headache, null));
+            set1.Add(new Conjunction(null, null, OneToThird.Nausea));
 
             Console.WriteLine("\n\n");
 
-            List<PartialStar> conjuctionResult = ConjunctSetWithStar(set1, OneToFifth);
-            conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+            set1.ForEach(con => Console.WriteLine(con));
 
-            Console.WriteLine("\n\n");
-            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSixth);
-            conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+            //List<Conjunction> conjuctionResult = ConjunctSetWithStar(set1, OneToFifth);
+            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
-            PartialStar part1 = new PartialStar(Temperature.NotNormal, null, null);
-            Console.WriteLine("\n\n");
-            Console.WriteLine(part1.IsSame(conjuctionResult[0]));
-            
-            
+            //Console.WriteLine("\n\n");
+            //conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSixth);
+            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+
+            //Console.WriteLine("\n\n");
+            //conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
+            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+
+
+
         }
     }
 }

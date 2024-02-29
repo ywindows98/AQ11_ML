@@ -20,7 +20,7 @@ namespace AlphaAQ11
         }
 
         public PartialStar(Case positive, Case negative)
-        {
+        { 
             if (positive.Temperature != negative.Temperature)
             {
                 Temperature = negative.Temperature.GetOpposite();
@@ -39,17 +39,17 @@ namespace AlphaAQ11
 
         public bool IsSame(PartialStar comparedStar)
         {
-            if (Temperature != comparedStar.Temperature)
+            if(Temperature != comparedStar.Temperature)
             {
                 return false;
             }
 
-            if (Headache != comparedStar.Headache)
+            if(Headache != comparedStar.Headache)
             {
                 return false;
             }
 
-            if (Nausea != comparedStar.Nausea)
+            if(Nausea != comparedStar.Nausea)
             {
                 return false;
             }
