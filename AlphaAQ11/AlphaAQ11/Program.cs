@@ -9,6 +9,44 @@ namespace AlphaAQ11
 {
     internal class Program
     {
+        static bool EvaluateConjunctionOnCase(Case fluCase, Conjunction conjunction)
+        {
+            if (conjunction.Temperature != null)
+            {
+                if(conjunction.Temperature == Temperature.NotVeryHigh || conjunction.Temperature == Temperature.NotHigh || conjunction.Temperature == Temperature.NotNormal)
+                {
+                    if (conjunction.Temperature == fluCase.Temperature.GetOpposite())
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (conjunction.Temperature != fluCase.Temperature)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if(conjunction.Headache != null)
+            {
+                if (conjunction.Headache != fluCase.Headache)
+                {
+                    return false;
+                }
+            }
+
+            if(conjunction.Nausea != null)
+            {
+                if(conjunction.Nausea != fluCase.Nausea)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         static bool ContainsConjunction(List<Conjunction> set, Conjunction conjunction)
         {
@@ -304,6 +342,17 @@ namespace AlphaAQ11
             conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
             conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
+            Console.WriteLine("\n\n");
+            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
+            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[0], ps) ));
+
+            Console.WriteLine("\n\n");
+            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
+            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[1], ps)));
+
+            Console.WriteLine("\n\n");
+            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
+            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[2], ps)));
 
 
         }
