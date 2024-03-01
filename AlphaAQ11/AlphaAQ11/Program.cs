@@ -9,7 +9,23 @@ namespace AlphaAQ11
 {
     internal class Program
     {
-        static bool EvaluateConjunctionOnCase(Case fluCase, Conjunction conjunction)
+        static float EvaluateCaseSetWithConjunction(List<Case> set, Conjunction conjunction)
+        {
+            float numberOfCases = (float)set.Count();
+            float numberOfTruePositive = 0f;
+            foreach (Case fluCase in set)
+            {
+                if (EvaluateCaseWithConjunction(fluCase, conjunction) == fluCase.DecisionFlu)
+                {
+                    numberOfTruePositive += 1f;
+                }
+            }
+
+            return numberOfTruePositive / numberOfCases;
+        }
+
+        // Returns only a prediction, not the fact if it was right or wrong
+        static bool EvaluateCaseWithConjunction(Case fluCase, Conjunction conjunction)
         {
             if (conjunction.Temperature != null)
             {
@@ -343,16 +359,13 @@ namespace AlphaAQ11
             conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
             Console.WriteLine("\n\n");
-            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
-            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[0], ps) ));
+            Console.WriteLine(EvaluateCaseSetWithConjunction(positiveSet, conjuctionResult[0]));
 
             Console.WriteLine("\n\n");
-            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
-            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[1], ps)));
+            Console.WriteLine(EvaluateCaseSetWithConjunction(positiveSet, conjuctionResult[1]));
 
             Console.WriteLine("\n\n");
-            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
-            conjuctionResult.ForEach(ps => Console.WriteLine(EvaluateConjunctionOnCase(positiveSet[2], ps)));
+            Console.WriteLine(EvaluateCaseSetWithConjunction(positiveSet, conjuctionResult[2]));
 
 
         }
