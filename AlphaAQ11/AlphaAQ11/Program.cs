@@ -10,11 +10,11 @@ namespace AlphaAQ11
     internal class Program
     {
 
-        static bool ContainsStar(List<PartialStar> set, PartialStar star)
+        static bool ContainsConjunction(List<Conjunction> set, Conjunction conjunction)
         {
-            foreach (PartialStar st in set)
+            foreach (Conjunction conj in set)
             {
-                if (st.IsSame(star))
+                if (conj.IsSame(conjunction))
                 {
                     return true;
                 }
@@ -178,10 +178,65 @@ namespace AlphaAQ11
         static List<Conjunction> ConjunctSetWithStar(List<Conjunction> set, PartialStar addingStar)
         {
             List<Conjunction> resultingSet = new List<Conjunction>();
-            Conjunction tempStar = null;
-            foreach (Conjunction star in set)
+            Conjunction tempConj = null;
+            foreach (Conjunction conj in set)
             {
-                
+                if (addingStar.Temperature != null)
+                {
+                    if (conj.Temperature == null)
+                    {
+                        tempConj = new Conjunction(addingStar.Temperature, conj.Headache, conj.Nausea);
+                        if (!ContainsConjunction(resultingSet, tempConj))
+                        {
+                            resultingSet.Add(tempConj);
+                        }
+                    }
+                    else if (conj.Temperature == addingStar.Temperature)
+                    {
+                        if (!ContainsConjunction(resultingSet, conj))
+                        {
+                            resultingSet.Add(conj);
+                        }
+                    }
+                }
+
+                if (addingStar.Headache != null)
+                {
+                    if (conj.Headache == null)
+                    {
+                        tempConj = new Conjunction(conj.Temperature, addingStar.Headache, conj.Nausea);
+                        if (!ContainsConjunction(resultingSet, tempConj))
+                        {
+                            resultingSet.Add(tempConj);
+                        }
+                    }
+                    else if (conj.Headache == addingStar.Headache)
+                    {
+                        if (!ContainsConjunction(resultingSet, conj))
+                        {
+                            resultingSet.Add(conj);
+                        }
+                    }
+                }
+
+                if (addingStar.Nausea != null)
+                {
+                    if (conj.Nausea == null)
+                    {
+                        tempConj = new Conjunction(conj.Temperature, conj.Headache, addingStar.Nausea);
+                        if (!ContainsConjunction(resultingSet, tempConj))
+                        {
+                            resultingSet.Add(tempConj);
+                        }
+                    }
+                    else if (conj.Nausea == addingStar.Nausea)
+                    {
+                        if (!ContainsConjunction(resultingSet, conj))
+                        {
+                            resultingSet.Add(conj);
+                        }
+                    }
+                }
             }
             return resultingSet;
         }
@@ -231,22 +286,23 @@ namespace AlphaAQ11
             List<Conjunction> set1 = new List<Conjunction>();
             set1.Add(new Conjunction(OneToThird.Temperature, null, null));
             set1.Add(new Conjunction(null, OneToThird.Headache, null));
-            set1.Add(new Conjunction(null, null, OneToThird.Nausea));
+            //set1.Add(new Conjunction(null, null, OneToThird.Nausea));
 
             Console.WriteLine("\n\n");
 
             set1.ForEach(con => Console.WriteLine(con));
 
-            //List<Conjunction> conjuctionResult = ConjunctSetWithStar(set1, OneToFifth);
-            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+            Console.WriteLine("\n\n");
+            List<Conjunction> conjuctionResult = ConjunctSetWithStar(set1, OneToFifth);
+            conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
-            //Console.WriteLine("\n\n");
-            //conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSixth);
-            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+            Console.WriteLine("\n\n");
+            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSixth);
+            conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
-            //Console.WriteLine("\n\n");
-            //conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
-            //conjuctionResult.ForEach(ps => Console.WriteLine(ps));
+            Console.WriteLine("\n\n");
+            conjuctionResult = ConjunctSetWithStar(conjuctionResult, OneToSeventh);
+            conjuctionResult.ForEach(ps => Console.WriteLine(ps));
 
 
 
