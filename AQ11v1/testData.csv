@@ -1,0 +1,14 @@
+gender,age,hypertension,heart_disease,work_type,residence_type,avg_glucose_level,burger,smoking_status,stroke
+Male,61-80,Yes,Yes,Private,Urban,Very High,bacon,formerly smoked,Yes
+Female,61-80,No,No,Self-employed,Rural,Very High,cheeseburger,never smoked,Yes
+Male,61-80,Red,Yes,Private,Rural,Normal,mccool,never smoked,Yes
+Female,41-60,Yellow,No,Private,Urban,High,hovedzie mesko,smokes,Yes
+Female,61-80,White,No,Self-employed,Rural,High,biden,never smoked,Yes
+Male,80+,Black,Black,Private,Urban,Very High,biden,formerly smoked,Yes
+Male,61-80,Green,Yes,Private,Rural,Normal,biden,never smoked,Yes
+Female,61-80,What,No,Private,Urban,Normal,mesko,never smoked,Yes
+Female,41-60,The,No,Private,Rural,Normal,hovedzie,Unknown,Yes
+Female,61-80,No,No,Private,Urban,Low,burger,Unknown,Yes
+Female,80+,Yes,No,Private,Rural,Normal,biden,never smoked,Yes
+Female,61-80,No,Yes,Govt_job,Rural,High,cheeseburger,smokes,Yes
+Female,41-60,No,No,Private,Urban,Normal,bacon,smokes,Yes
