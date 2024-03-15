@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace AQ11v1
 {
+    // Trieda, ktorá predstavuje údaje extrahované z datasetu.
     public class Data
     {
         string datasetPath;
@@ -23,6 +24,7 @@ namespace AQ11v1
 
         }
 
+        // Metóda, ktorá volá všetky potrebné metódy z predprocesora na úspešné načítanie údajov z datasetu a ich uloženie v rôznych variantoch.
         public void ReadDataset(string datasetPath)
         {
             this.datasetPath = datasetPath;
@@ -38,6 +40,7 @@ namespace AQ11v1
             numberOfRecords = Records.Count;
         }
 
+        // Metóda na zobrazenie hlavičiek(atribútov) údajov v konzole.
         public void DisplayHeaders()
         {
             string headersString = "";
@@ -48,7 +51,7 @@ namespace AQ11v1
             Console.WriteLine(headersString);
         }
 
-        // method to display records with values represented by strings.
+        // Metóda na zobrazenie reťazcových hodnôt záznamov extrahovaných z datasetu.
         public void DisplayRecordsString()
         {
             string outputRecord;
@@ -63,6 +66,7 @@ namespace AQ11v1
             }
         }
 
+        // Metóda zobrazenia číselných záznamov transformovaných z nespracovaných reťazcových údajov.
         public void DisplayNumericalRecords()
         {
             string outputRecord;

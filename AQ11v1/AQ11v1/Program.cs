@@ -13,6 +13,8 @@ namespace AQ11v1
 {
     internal class Program
     {
+
+        // Funkcia získa a vráti reťazec cesty do hlavného priečinka projektu
         static string GetMainProjectFolder()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -22,6 +24,7 @@ namespace AQ11v1
 
         static void Main(string[] args)
         {
+
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
             string datasetName = "stroke_data_sample.csv";
