@@ -142,5 +142,65 @@ namespace AQ11v1
             return recordsIndividualConverted;
         }
 
+
+        public static List<List<int>> GetPositiveRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
+        {
+            int numberOfColumns = headers.Count;
+            int numberOfRecords = recordsNumerical.Count;
+
+            int targetColumnIndex = headers.FindIndex(x => x == posAttributeName);
+            if(targetColumnIndex == -1)
+            {
+                throw new ArgumentException($"Given positive attribute name (target column {posAttributeName})  is not found in the headers list. Name of the attribute has to be identical to the one in the dataset header. It is also, case-sensitive. Make sure the input is correct");
+            }
+            //Console.WriteLine(targetColumnIndex);
+            int targetPositiveValueIndex = attributesDict[posAttributeName].FindIndex(x => x == posAttributeValue);
+            if (targetPositiveValueIndex == -1)
+            {
+                throw new ArgumentException($"Given positive attribute value (target value {posAttributeValue})  is not found in the dictionary under the {posAttributeName} key. Value of the attribute has to be identical to the one in the dataset. It is also, case-sensitive. Make sure the input is correct.");
+            }
+            //Console.WriteLine(targetPositiveValueIndex);
+
+            List<List<int>> positiveRecords = new List<List<int>>();
+            for(int i=0; i<numberOfRecords; i++)
+            {
+                if (recordsNumerical[i][targetColumnIndex] == targetPositiveValueIndex)
+                {
+                    positiveRecords.Add(recordsNumerical[i]);
+                }
+            }
+
+            return positiveRecords;
+        }
+
+        public static List<List<int>> GetNegativeRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
+        {
+            int numberOfColumns = headers.Count;
+            int numberOfRecords = recordsNumerical.Count;
+
+            int targetColumnIndex = headers.FindIndex(x => x == posAttributeName);
+            if (targetColumnIndex == -1)
+            {
+                throw new ArgumentException($"Given positive attribute name (target column {posAttributeName})  is not found in the headers list. Name of the attribute has to be identical to the one in the dataset header. It is also, case-sensitive. Make sure the input is correct");
+            }
+            //Console.WriteLine(targetColumnIndex);
+            int targetPositiveValueIndex = attributesDict[posAttributeName].FindIndex(x => x == posAttributeValue);
+            if (targetPositiveValueIndex == -1)
+            {
+                throw new ArgumentException($"Given positive attribute value (target value {posAttributeValue})  is not found in the dictionary under the {posAttributeName} key. Value of the attribute has to be identical to the one in the dataset. It is also, case-sensitive. Make sure the input is correct.");
+            }
+            //Console.WriteLine(targetPositiveValueIndex);
+
+            List<List<int>> negativeRecords = new List<List<int>>();
+            for (int i = 0; i < numberOfRecords; i++)
+            {
+                if (recordsNumerical[i][targetColumnIndex] != targetPositiveValueIndex)
+                {
+                    negativeRecords.Add(recordsNumerical[i]);
+                }
+            }
+
+            return negativeRecords;
+        }
     }
 }

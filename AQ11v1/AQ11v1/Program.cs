@@ -31,14 +31,38 @@ namespace AQ11v1
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine(datasetPath);
 
-            Data data = new Data();
-
-            data.ReadDataset(datasetPath);
+            Data data = new Data(datasetPath, "stroke", "Yes");
 
             //data.DisplayHeaders();
             //data.DisplayRecordsString();
             data.DisplayNumericalRecords();
 
+            //data.DisplayPositiveRecords();
+            //data.DisplayNegativeRecords();
+
+            int numberOfColumns = data.NumberOfColumns;
+
+            List<int> positiveRecord = data.PositiveRecords[0];
+            List<int> negativeRecord = data.NegativeRecords[3];
+
+            List<int?> partialStarDisjunction = new List<int?>();
+            for(int i=1; i<numberOfColumns-1; i++)
+            {
+                if (positiveRecord[i] != negativeRecord[i])
+                {
+                    partialStarDisjunction.Add(-negativeRecord[i]);
+                }
+                else
+                {
+                    partialStarDisjunction.Add(null);
+                }
+            }
+
+            for(int i=0; i<numberOfColumns-2; i++)
+            {
+                Console.Write($" {partialStarDisjunction[i]} |");
+            }
+            Console.Write("\n");
 
         }
     }
