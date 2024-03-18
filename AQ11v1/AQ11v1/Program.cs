@@ -40,29 +40,22 @@ namespace AQ11v1
             //data.DisplayPositiveRecords();
             //data.DisplayNegativeRecords();
 
-            int numberOfColumns = data.NumberOfColumns;
-
             List<int> positiveRecord = data.PositiveRecords[0];
             List<int> negativeRecord = data.NegativeRecords[3];
 
-            List<int?> partialStarDisjunction = new List<int?>();
-            for(int i=1; i<numberOfColumns-1; i++)
-            {
-                if (positiveRecord[i] != negativeRecord[i])
-                {
-                    partialStarDisjunction.Add(-negativeRecord[i]);
-                }
-                else
-                {
-                    partialStarDisjunction.Add(null);
-                }
-            }
+            AQ11 aq = new AQ11(data.NumberOfColumns, data.NumberOfRecords);
 
-            for(int i=0; i<numberOfColumns-2; i++)
-            {
-                Console.Write($" {partialStarDisjunction[i]} |");
-            }
-            Console.Write("\n");
+            //List<int?> partialStarDisjunction = aq.CreatePartialStarDisjunction(positiveRecord, negativeRecord);
+
+            //aq.DisplayPartialStarDisjunction(partialStarDisjunction);
+
+            List<List<int?>> partialStarConjunction = aq.CreatePartialStarConjunction(positiveRecord, data.NegativeRecords);
+            aq.DispalayPartialStarConjunction(partialStarConjunction);
+
+            Console.WriteLine("=============================\n\n==============");
+
+            List<List<int?>> afterAbsorption = aq.ApplyAbsorptionLawOnConjunction(partialStarConjunction);
+            aq.DispalayPartialStarConjunction(afterAbsorption);
 
         }
     }

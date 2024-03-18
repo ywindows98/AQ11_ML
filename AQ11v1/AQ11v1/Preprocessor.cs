@@ -142,7 +142,7 @@ namespace AQ11v1
             return recordsIndividualConverted;
         }
 
-
+        // Metóda extrakcie pozitívnych záznamov(ktore chceme pokryť) zo zoznamu záznamov.
         public static List<List<int>> GetPositiveRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
         {
             int numberOfColumns = headers.Count;
@@ -173,6 +173,7 @@ namespace AQ11v1
             return positiveRecords;
         }
 
+        // Metóda extrakcie negatívnych záznamov(ktore nechceme pokryť) zo zoznamu záznamov.
         public static List<List<int>> GetNegativeRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
         {
             int numberOfColumns = headers.Count;
