@@ -43,7 +43,7 @@ namespace AQ11v1
             List<int> positiveRecord = data.PositiveRecords[0];
             List<int> negativeRecord = data.NegativeRecords[3];
 
-            AQ11 aq = new AQ11(data.NumberOfColumns, data.NumberOfRecords);
+            AQ11 aq = new AQ11(data);
 
             //List<int?> partialStarDisjunction = aq.CreatePartialStarDisjunction(positiveRecord, negativeRecord);
 
@@ -57,6 +57,8 @@ namespace AQ11v1
             List<List<int?>> afterAbsorption = aq.ApplyAbsorptionLawOnConjunction(partialStarConjunction);
             aq.DispalayPartialStarConjunction(afterAbsorption);
 
+
+            Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[2], afterAbsorption));
         }
     }
 }

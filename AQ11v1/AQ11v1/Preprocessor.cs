@@ -88,6 +88,7 @@ namespace AQ11v1
         }
 
         // Metóda vytvorí slovník na univerzálne uloženie možných hodnôt atribútov a vráti ho. Kľúče sú názvy hlavičiek.
+        // indexovanie v setoch sa začina s 1 (0 element je null). Aby bolo ľahšie pracovať s negaciou atributov. 
         public static Dictionary<string, List<string>> CreateAttributesDictionary(List<string> headers, List<List<string>> recordsString)
         {
             Dictionary<string, List<string>> attributesDict = new Dictionary<string, List<string>>();
@@ -98,6 +99,7 @@ namespace AQ11v1
             {
                 // Získanie všetkých možných hodnôt atribútu v zoznam(set).
                 attrValuesSet = recordsString[i].ToHashSet().ToList();
+                attrValuesSet.Insert(0, null);
                 attributesDict.Add(headers[i], attrValuesSet);
             }
 

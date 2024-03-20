@@ -12,10 +12,18 @@ namespace AQ11v1
         public int NumberOfColumns { get; set; }
         public int NumberOfRecords { get; set; }
 
-        public AQ11(int numberOfColumns, int numberOfRecords)
+        public Data LocalData { get; set; }
+
+        public AQ11(Data data)
         {
-            NumberOfColumns = numberOfColumns;
-            NumberOfRecords = numberOfRecords;
+            LocalData = data;
+            NumberOfColumns = data.NumberOfColumns;
+            NumberOfRecords = data.NumberOfRecords;
+        }
+
+        public void SetData(Data data)
+        {
+            LocalData = data;
         }
 
         public List<int?> CreatePartialStarDisjunction(List<int> positiveRecord, List<int> negativeRecord)
@@ -52,7 +60,7 @@ namespace AQ11v1
             int numberOfNegatives = negativeRecords.Count;
 
             List<int?> partialStarDisjunction = new List<int?>();
-            for (int i=0; i<numberOfNegatives; i++)
+            for (int i = 0; i < numberOfNegatives; i++)
             {
                 partialStarDisjunction = CreatePartialStarDisjunction(positiveRecord, negativeRecords[i]);
                 partialStarConjunction.Add(partialStarDisjunction);
@@ -71,7 +79,7 @@ namespace AQ11v1
 
         private bool CanBeAbsorbed(List<int?> primaryStar, List<int?> secondaryStar)
         {
-            for(int i=0; i<primaryStar.Count; i++)
+            for (int i = 0; i < primaryStar.Count; i++)
             {
                 if (primaryStar[i] != null)
                 {
@@ -117,6 +125,62 @@ namespace AQ11v1
 
             return partialStarConjucntion;
         }
+
+
+        public bool IsRecordCoveredByDisjunction(List<int> record, List<int?> disjunction)
+        {
+            for (int i = 0; i < disjunction.Count; i++)
+            {
+                if (disjunction[i] != null)
+                {
+                    if (disjunction[i] > 0)
+                    {
+                        if (record[i + 1] == disjunction[i])
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (record[i + 1] != disjunction[i])
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("=====================");
+            Console.WriteLine("Record:");
+            for(int i=0; i<record.Count; i++)
+            {
+                Console.Write($" {record[i]} |");
+            }
+            Console.WriteLine("\nWas not covered by:");
+            for(int i=0; i<disjunction.Count(); i++)
+            {
+                Console.Write($" {disjunction[i]} |");
+            }
+            Console.WriteLine();
+            return false;
+        }
+
+
+        public bool IsRecordCoveredByConjunction(List<int> record, List<List<int?>> conjunction)
+        {
+            for(int i=0; i<conjunction.Count; i++)
+            {
+                if (!IsRecordCoveredByDisjunction(record, conjunction[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
+
 
     }
 }
