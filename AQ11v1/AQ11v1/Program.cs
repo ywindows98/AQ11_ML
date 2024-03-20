@@ -37,11 +37,14 @@ namespace AQ11v1
             //data.DisplayRecordsString();
             data.DisplayNumericalRecords();
 
+            Console.WriteLine();
             //data.DisplayPositiveRecords();
+            //Console.WriteLine();
             //data.DisplayNegativeRecords();
+            //Console.WriteLine();
 
             List<int> positiveRecord = data.PositiveRecords[0];
-            List<int> negativeRecord = data.NegativeRecords[3];
+            //List<int> negativeRecord = data.NegativeRecords[0];
 
             AQ11 aq = new AQ11(data);
 
@@ -58,7 +61,7 @@ namespace AQ11v1
             aq.DispalayPartialStarConjunction(afterAbsorption);
 
 
-            Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[2], afterAbsorption));
+            Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[7], afterAbsorption));
         }
     }
 }

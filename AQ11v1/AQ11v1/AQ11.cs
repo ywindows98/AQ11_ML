@@ -142,7 +142,7 @@ namespace AQ11v1
                     }
                     else
                     {
-                        if (record[i + 1] != disjunction[i])
+                        if (record[i + 1] != disjunction[i]*(-1))
                         {
                             return true;
                         }
