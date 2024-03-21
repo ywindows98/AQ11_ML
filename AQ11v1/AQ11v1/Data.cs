@@ -80,7 +80,7 @@ namespace AQ11v1
         }
 
         // Metóda na zobrazenie číselných záznamov.
-        private void DisplayNumericalRecords(List<List<int>> records)
+        public void DisplayNumericalRecords(List<List<int>> records)
         {
             string outputRecord;
             foreach (List<int> record in records)

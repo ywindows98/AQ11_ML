@@ -27,11 +27,17 @@ namespace AQ11v1
 
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
-            string datasetName = "stroke_data_sample.csv";
+            //string datasetName = "stroke_data_sample.csv";
+            //string datasetPath = mainProjectFolder + '\\' + datasetName;
+            //Console.WriteLine(datasetPath);
+
+            //Data data = new Data(datasetPath, "stroke", "Yes");
+
+            string datasetName = "cvic.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine(datasetPath);
 
-            Data data = new Data(datasetPath, "stroke", "Yes");
+            Data data = new Data(datasetPath, "Target", "P");
 
             //data.DisplayHeaders();
             //data.DisplayRecordsString();
@@ -52,16 +58,27 @@ namespace AQ11v1
 
             //aq.DisplayPartialStarDisjunction(partialStarDisjunction);
 
-            List<List<int?>> partialStarConjunction = aq.CreatePartialStarConjunction(positiveRecord, data.NegativeRecords);
-            aq.DispalayPartialStarConjunction(partialStarConjunction);
+            //List<List<int?>> partialStarConjunction = aq.CreatePartialStarConjunction(positiveRecord, data.NegativeRecords);
+            //aq.DispalayPartialStarConjunction(partialStarConjunction);
 
-            Console.WriteLine("=============================\n\n==============");
+            //Console.WriteLine("=============================\n\n==============");
 
-            List<List<int?>> afterAbsorption = aq.ApplyAbsorptionLawOnConjunction(partialStarConjunction);
-            aq.DispalayPartialStarConjunction(afterAbsorption);
+            //List<List<int?>> afterAbsorption = aq.ApplyAbsorptionLawOnConjunction(partialStarConjunction);
+            //aq.DispalayPartialStarConjunction(afterAbsorption);
 
 
-            Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[7], afterAbsorption));
+            //Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[7], afterAbsorption));
+
+            //List<List<int>> coveredRecords = aq.SelectCoveredRecords(aq.LocalData.PositiveRecords, afterAbsorption);
+            //Console.WriteLine("Covered records: ");
+            //data.DisplayNumericalRecords(coveredRecords);
+
+            List<List<List<int?>>> fullStar = aq.CreateFullStarDisjunction(aq.LocalData.PositiveRecords, aq.LocalData.NegativeRecords);
+
+            aq.DisplayFullStarDisjunction(fullStar);
+
+
+
         }
     }
 }

@@ -150,19 +150,24 @@ namespace AQ11v1
                 }
             }
 
+            DisplayNotCoverage(record, disjunction);
+            return false;
+        }
+
+        public void DisplayNotCoverage(List<int> record, List<int?> disjunction)
+        {
             Console.WriteLine("=====================");
             Console.WriteLine("Record:");
-            for(int i=0; i<record.Count; i++)
+            for (int i = 0; i < record.Count; i++)
             {
                 Console.Write($" {record[i]} |");
             }
             Console.WriteLine("\nWas not covered by:");
-            for(int i=0; i<disjunction.Count(); i++)
+            for (int i = 0; i < disjunction.Count(); i++)
             {
                 Console.Write($" {disjunction[i]} |");
             }
             Console.WriteLine();
-            return false;
         }
 
 
@@ -179,6 +184,55 @@ namespace AQ11v1
             return true;
         }
 
+
+        public  List<List<int>> SelectCoveredRecords(List<List<int>> records, List<List<int?>> conjunction)
+        {
+            List<List<int>> coveredRecords = new List<List<int>>();
+
+            foreach (List<int> record in records)
+            {
+                if(IsRecordCoveredByConjunction(record, conjunction))
+                {
+                    coveredRecords.Add(record);
+                }
+            }
+
+            return coveredRecords;
+        }
+
+        public List<List<List<int?>>> CreateFullStarDisjunction(List<List<int>> positiveRecords, List<List<int>> negativeRecords)
+        {
+            List<List<int>> positiveRecordsTemp = positiveRecords;
+            List<List<List<int?>>> fullStar = new List<List<List<int?>>>();
+
+            List<List<int?>> conjunctionTemp = new List<List<int?>>();
+            List<List<int>> coveredTemp = new List<List<int>>();
+            while (positiveRecords.Count != 0)
+            {
+                conjunctionTemp = CreatePartialStarConjunction(positiveRecordsTemp[0], negativeRecords);
+                conjunctionTemp = ApplyAbsorptionLawOnConjunction(conjunctionTemp);
+                fullStar.Add(conjunctionTemp);
+
+                coveredTemp = SelectCoveredRecords(positiveRecordsTemp, conjunctionTemp);
+
+                foreach(List<int> record in coveredTemp)
+                {
+                    positiveRecordsTemp.Remove(record);
+                }
+            }
+
+            return fullStar;
+
+        }
+
+        public void DisplayFullStarDisjunction(List<List<List<int?>>> fullStar)
+        {
+            foreach (List<List<int?>> conjunction in fullStar)
+            {
+                Console.WriteLine("Conjunction: ");
+                DispalayPartialStarConjunction(conjunction);
+            }
+        }
 
 
 
