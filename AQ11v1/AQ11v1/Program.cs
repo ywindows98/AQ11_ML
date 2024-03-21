@@ -39,7 +39,7 @@ namespace AQ11v1
 
             Data data = new Data(datasetPath, "Target", "P");
 
-            //data.DisplayHeaders();
+            data.DisplayHeaders();
             //data.DisplayRecordsString();
             data.DisplayNumericalRecords();
 
@@ -73,9 +73,16 @@ namespace AQ11v1
             //Console.WriteLine("Covered records: ");
             //data.DisplayNumericalRecords(coveredRecords);
 
+
+
             List<List<List<int?>>> fullStar = aq.CreateFullStarDisjunction(aq.LocalData.PositiveRecords, aq.LocalData.NegativeRecords);
 
             aq.DisplayFullStarDisjunction(fullStar);
+
+
+            List<List<int?>> disjunctions = aq.TransformNegationsIntoDisjunctions(fullStar[1][1]);
+
+            Console.WriteLine("text");
 
 
 

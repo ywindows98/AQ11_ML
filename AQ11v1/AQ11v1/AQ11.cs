@@ -118,6 +118,7 @@ namespace AQ11v1
 
                 for (int k = 0; k < absorptionList.Count; k++)
                 {
+                    i = 0;
                     partialStarConjucntion.Remove(absorptionList[k]);
                 }
             }
@@ -211,6 +212,7 @@ namespace AQ11v1
             {
                 conjunctionTemp = CreatePartialStarConjunction(positiveRecordsTemp[0], negativeRecords);
                 conjunctionTemp = ApplyAbsorptionLawOnConjunction(conjunctionTemp);
+
                 fullStar.Add(conjunctionTemp);
 
                 coveredTemp = SelectCoveredRecords(positiveRecordsTemp, conjunctionTemp);
@@ -225,6 +227,7 @@ namespace AQ11v1
 
         }
 
+
         public void DisplayFullStarDisjunction(List<List<List<int?>>> fullStar)
         {
             foreach (List<List<int?>> conjunction in fullStar)
@@ -233,6 +236,51 @@ namespace AQ11v1
                 DispalayPartialStarConjunction(conjunction);
             }
         }
+
+        public List<List<int?>> TransformNegationsIntoDisjunctions(List<int?> negations)
+        {
+            List<List<int?>> disjunctions = new List<List<int?>>();
+            List<int?> disjunctionTemp = new List<int?>();
+            int maxIndex = 0;
+            for (int i = 0; i < negations.Count; i++)
+            {
+                if (negations[i]!=null)
+                {
+                    disjunctionTemp = new List<int?>();
+                    if (negations[i]<0)
+                    {
+                        maxIndex = LocalData.AttributesDict[LocalData.Headers[i + 1]].Count - 1; // -1 pretože v AttributeDict v každom zozname atributov mame na 0 pozicie null hodnoto pre zjednoduchšenie procesu.
+                        for (int j=1; j<=maxIndex; j++)
+                        {
+                            if (negations[i] * (-1) != j)
+                            {
+                                disjunctionTemp.Add(j);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        disjunctionTemp.Add(negations[i]);
+                    }
+                }
+                else
+                {
+                    disjunctionTemp = null;
+                }
+
+                disjunctions.Add(disjunctionTemp);
+            }
+
+            return disjunctions;
+        }
+
+        //public List<List<List<List<int?>>>> TransformFullStarToPositiveRule(List<List<List<int?>>> fullStar)
+        //{
+        //    for(int i=0; i<fullStar.Count; i++)
+        //    {
+
+        //    }
+        //}
 
 
 
