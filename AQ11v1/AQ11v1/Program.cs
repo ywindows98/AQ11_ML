@@ -27,17 +27,17 @@ namespace AQ11v1
 
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
-            //string datasetName = "stroke_data_sample.csv";
-            //string datasetPath = mainProjectFolder + '\\' + datasetName;
-            //Console.WriteLine(datasetPath);
-
-            //Data data = new Data(datasetPath, "stroke", "Yes");
-
-            string datasetName = "cvic.csv";
+            string datasetName = "stroke_data_sample.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine(datasetPath);
 
-            Data data = new Data(datasetPath, "Target", "P");
+            Data data = new Data(datasetPath, "stroke", "Yes");
+
+            //string datasetName = "cvic.csv";
+            //string datasetPath = mainProjectFolder + '\\' + datasetName;
+            //Console.WriteLine(datasetPath);
+
+            //Data data = new Data(datasetPath, "Target", "P");
 
             data.DisplayHeaders();
             //data.DisplayRecordsString();
@@ -80,11 +80,13 @@ namespace AQ11v1
             aq.DisplayFullStarDisjunction(fullStar);
 
 
-            List<List<List<int?>>> conjucntion = aq.TransformNegativeConjunctionIntoPositive(fullStar[1]);
+            //List<List<List<int?>>> conjucntion = aq.TransformNegativeConjunctionIntoPositive(fullStar[1]);
 
-            aq.DisplayPositiveConjunction(conjucntion);
-            
+            //aq.DisplayPositiveConjunction(conjucntion);
 
+            List<List<List<List<int?>>>> positiveStar = aq.TransformFullStarToNumericalPositiveFullStar(fullStar);
+
+            aq.DisplayPositiveFullStar(positiveStar);
 
 
         }

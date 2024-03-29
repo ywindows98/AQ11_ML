@@ -305,22 +305,32 @@ namespace AQ11v1
 
         public void DisplayPositiveConjunction(List<List<List<int?>>> positiveConjucntion)
         {
+            Console.WriteLine("Positive conjunction: ");
             for (int i = 0; i < positiveConjucntion.Count; i++)
             {
                 DisplayPositiveDisjunctions(positiveConjucntion[i]);
             }
         }
 
-        //public List<List<List<List<int?>>>> TransformFullStarToNumericalPositiveRule(List<List<List<int?>>> fullStar)
-        //{
-        //    for (int i = 0; i < fullStar.Count; i++)
-        //    {
-        //        for(int j=0; j< fullStar[i].Count; j++)
-        //        {
+        // Disjuncton / Conjunctions / Disjunctions / Disjunctions
+        public List<List<List<List<int?>>>> TransformFullStarToNumericalPositiveFullStar(List<List<List<int?>>> fullStar)
+        {
+            List<List<List<List<int?>>>> positiveStar = new List<List<List<List<int?>>>>();
+            for (int i = 0; i < fullStar.Count; i++)
+            {
+                positiveStar.Add(TransformNegativeConjunctionIntoPositive(fullStar[i]));
+            }
 
-        //        }
-        //    }
-        //}
+            return positiveStar;
+        }
+
+        public void DisplayPositiveFullStar(List<List<List<List<int?>>>> positiveStar)
+        {
+            for(int i=0; i<positiveStar.Count; i++)
+            {
+                DisplayPositiveConjunction(positiveStar[i]);
+            }
+        }
 
 
 
