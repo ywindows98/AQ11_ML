@@ -80,9 +80,10 @@ namespace AQ11v1
             aq.DisplayFullStarDisjunction(fullStar);
 
 
-            List<List<int?>> disjunctions = aq.TransformNegationsIntoDisjunctions(fullStar[1][1]);
+            List<List<List<int?>>> conjucntion = aq.TransformNegativeConjunctionIntoPositive(fullStar[1]);
 
-            Console.WriteLine("text");
+            aq.DisplayPositiveConjunction(conjucntion);
+            
 
 
 

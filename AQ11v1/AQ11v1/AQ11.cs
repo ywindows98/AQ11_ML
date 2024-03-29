@@ -265,7 +265,7 @@ namespace AQ11v1
                 }
                 else
                 {
-                    disjunctionTemp = null;
+                    disjunctionTemp = new List<int?>();
                 }
 
                 disjunctions.Add(disjunctionTemp);
@@ -274,11 +274,51 @@ namespace AQ11v1
             return disjunctions;
         }
 
-        //public List<List<List<List<int?>>>> TransformFullStarToPositiveRule(List<List<List<int?>>> fullStar)
-        //{
-        //    for(int i=0; i<fullStar.Count; i++)
-        //    {
+        public void DisplayPositiveDisjunctions(List<List<int?>> disjunctions)
+        {
+            Console.WriteLine("Disjunctions: ");
 
+            for (int i = 0; i < disjunctions.Count; i++)
+            {
+                Console.WriteLine($"Positive {LocalData.Headers[i + 1]} disjunction: ");
+                for (int j = 0; j < disjunctions[i].Count; j++)
+                {
+                    Console.Write($" {disjunctions[i][j]} |");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public List<List<List<int?>>> TransformNegativeConjunctionIntoPositive(List<List<int?>> conjucntion)
+        {
+            List<List<List<int?>>> positiveConjunction = new List<List<List<int?>>>();
+            //List<List<int?>> disjunctionTemp;
+
+            for(int i=0; i<conjucntion.Count; i++)
+            {
+                positiveConjunction.Add(TransformNegationsIntoDisjunctions(conjucntion[i]));
+
+            }
+
+            return positiveConjunction;
+        }
+
+        public void DisplayPositiveConjunction(List<List<List<int?>>> positiveConjucntion)
+        {
+            for (int i = 0; i < positiveConjucntion.Count; i++)
+            {
+                DisplayPositiveDisjunctions(positiveConjucntion[i]);
+            }
+        }
+
+        //public List<List<List<List<int?>>>> TransformFullStarToNumericalPositiveRule(List<List<List<int?>>> fullStar)
+        //{
+        //    for (int i = 0; i < fullStar.Count; i++)
+        //    {
+        //        for(int j=0; j< fullStar[i].Count; j++)
+        //        {
+
+        //        }
         //    }
         //}
 
