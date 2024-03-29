@@ -27,7 +27,7 @@ namespace AQ11v1
 
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
-            string datasetName = "stroke_data_sample.csv";
+            string datasetName = "stroke_dataset_sample_light.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine(datasetPath);
 
@@ -75,19 +75,25 @@ namespace AQ11v1
 
 
 
-            List<List<List<int?>>> fullStar = aq.CreateFullStarDisjunction(aq.LocalData.PositiveRecords, aq.LocalData.NegativeRecords);
+            //List<List<List<int?>>> fullStar = aq.CreateFullStarDisjunction(aq.LocalData.PositiveRecords, aq.LocalData.NegativeRecords);
 
-            aq.DisplayFullStarDisjunction(fullStar);
+            //aq.DisplayFullStarDisjunction(fullStar);
 
 
             //List<List<List<int?>>> conjucntion = aq.TransformNegativeConjunctionIntoPositive(fullStar[1]);
 
             //aq.DisplayPositiveConjunction(conjucntion);
 
-            List<List<List<List<int?>>>> positiveStar = aq.TransformFullStarToNumericalPositiveFullStar(fullStar);
+            //List<List<List<List<int?>>>> positiveStar = aq.TransformFullStarToNumericalPositiveFullStar(fullStar);
 
-            aq.DisplayPositiveFullStar(positiveStar);
+            //aq.DisplayPositiveFullStar(positiveStar);
 
+            //aq.DisplayPositiveFullStarAsRule(positiveStar);
+
+
+            aq.ApplyAlgorithmOnData();
+
+            aq.DisplayResultingRule();
 
         }
     }

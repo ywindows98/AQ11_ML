@@ -13,6 +13,8 @@ namespace AQ11v1
         public int NumberOfRecords { get; set; }
 
         public Data LocalData { get; set; }
+        public List<List<List<int?>>> fullStar { get; set; }
+        public List<List<List<List<int?>>>> positiveFullStar { get; set; }
 
         public AQ11(Data data)
         {
@@ -24,6 +26,18 @@ namespace AQ11v1
         public void SetData(Data data)
         {
             LocalData = data;
+        }
+
+        public void ApplyAlgorithmOnData()
+        {
+            fullStar = CreateFullStarDisjunction(LocalData.PositiveRecords, LocalData.NegativeRecords);
+
+            positiveFullStar = TransformFullStarToNumericalPositiveFullStar(fullStar);
+        }
+
+        public void DisplayResultingRule()
+        {
+            DisplayPositiveFullStarAsRule(positiveFullStar);
         }
 
         public List<int?> CreatePartialStarDisjunction(List<int> positiveRecord, List<int> negativeRecord)
@@ -151,7 +165,7 @@ namespace AQ11v1
                 }
             }
 
-            DisplayNotCoverage(record, disjunction);
+            //DisplayNotCoverage(record, disjunction);
             return false;
         }
 
@@ -330,6 +344,54 @@ namespace AQ11v1
             {
                 DisplayPositiveConjunction(positiveStar[i]);
             }
+        }
+
+        public void DisplayPositiveFullStarAsRule(List<List<List<List<int?>>>> positiveStar)
+        {
+            bool useOr = false;
+            Console.WriteLine("=======================\nFinal rule: \n=======================");
+            for(int i=0; i<positiveStar.Count; i++)
+            {
+                if (i != 0)
+                {
+                    Console.WriteLine("\n=======================");
+                    Console.WriteLine(" OR");
+                    Console.WriteLine("=======================");
+                }
+                for(int j=0; j < positiveStar[i].Count; j++)
+                {
+
+                    if (j != 0)
+                    {
+                        Console.WriteLine("\n--------------------");
+                        Console.WriteLine(" AND");
+                        Console.WriteLine("--------------------");
+                    }
+                    useOr = false;
+                    for(int k=0; k < positiveStar[i][j].Count; k++)
+                    {
+                        if (positiveStar[i][j][k].Count !=0)
+                        {
+                            if (useOr)
+                            {
+                                Console.WriteLine(" or");
+                            }
+                            else
+                            {
+                                useOr = true;
+                            }
+
+                            for(int h=0; h < positiveStar[i][j][k].Count; h++)
+                            {
+                                if (h != 0) Console.Write(" or ");
+
+                                Console.Write($"({LocalData.Headers[k+1]} : { LocalData.AttributesDict[LocalData.Headers[k+1]][(int)positiveStar[i][j][k][h]] })");
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("\n=======================\n\n");
         }
 
 
