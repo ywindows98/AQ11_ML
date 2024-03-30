@@ -24,76 +24,49 @@ namespace AQ11v1
 
         static void Main(string[] args)
         {
-
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
             string datasetName = "stroke_dataset_sample_light.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
+            Console.WriteLine("Training dataset path: ");
             Console.WriteLine(datasetPath);
 
+            // Načitame a prespracujeme data.
             Data data = new Data(datasetPath, "stroke", "Yes");
 
-            //string datasetName = "cvic.csv";
-            //string datasetPath = mainProjectFolder + '\\' + datasetName;
-            //Console.WriteLine(datasetPath);
-
-            //Data data = new Data(datasetPath, "Target", "P");
-
+            Console.WriteLine("==============================");
+            Console.WriteLine("TRAINING DATASET: ");
+            Console.WriteLine("==============================");
             data.DisplayHeaders();
-            //data.DisplayRecordsString();
-            data.DisplayNumericalRecords();
+            data.DisplayRecordsString();
+            Console.WriteLine("\n\n");
 
-            Console.WriteLine();
-            //data.DisplayPositiveRecords();
+            // Vytvoríme inštanciu algoritmu a vložíme do nej dáta.
+            AQ11 aq = new AQ11();
+
+            // Applikujeme algoritmus na dáta 
+            aq.ApplyAlgorithmOnData(data, true);
+            //aq.DisplayResultingRule();
             //Console.WriteLine();
-            //data.DisplayNegativeRecords();
-            //Console.WriteLine();
-
-            List<int> positiveRecord = data.PositiveRecords[0];
-            //List<int> negativeRecord = data.NegativeRecords[0];
-
-            AQ11 aq = new AQ11(data);
-
-            //List<int?> partialStarDisjunction = aq.CreatePartialStarDisjunction(positiveRecord, negativeRecord);
-
-            //aq.DisplayPartialStarDisjunction(partialStarDisjunction);
-
-            //List<List<int?>> partialStarConjunction = aq.CreatePartialStarConjunction(positiveRecord, data.NegativeRecords);
-            //aq.DispalayPartialStarConjunction(partialStarConjunction);
-
-            //Console.WriteLine("=============================\n\n==============");
-
-            //List<List<int?>> afterAbsorption = aq.ApplyAbsorptionLawOnConjunction(partialStarConjunction);
-            //aq.DispalayPartialStarConjunction(afterAbsorption);
 
 
-            //Console.WriteLine(aq.IsRecordCoveredByConjunction(data.NegativeRecords[7], afterAbsorption));
+            string evaluationName = "stroke_dataset_sample_evaluation.csv";
+            string evaluationPath = mainProjectFolder + '\\' + evaluationName;
+            Console.WriteLine("Evaluation dataset path: ");
+            Console.WriteLine(evaluationPath);
 
-            //List<List<int>> coveredRecords = aq.SelectCoveredRecords(aq.LocalData.PositiveRecords, afterAbsorption);
-            //Console.WriteLine("Covered records: ");
-            //data.DisplayNumericalRecords(coveredRecords);
+            // Načitame a prespracujeme data.
+            Data evaluationData = new Data(evaluationPath, "stroke", "Yes", aq.LocalData.AttributesDict);
 
+            //Console.WriteLine("==============================");
+            //Console.WriteLine("EVALUATION DATASET: ");
+            //Console.WriteLine("==============================");
+            //evaluationData.DisplayHeaders();
+            //evaluationData.DisplayRecordsString();
+            //Console.WriteLine("\n");
 
-
-            //List<List<List<int?>>> fullStar = aq.CreateFullStarDisjunction(aq.LocalData.PositiveRecords, aq.LocalData.NegativeRecords);
-
-            //aq.DisplayFullStarDisjunction(fullStar);
-
-
-            //List<List<List<int?>>> conjucntion = aq.TransformNegativeConjunctionIntoPositive(fullStar[1]);
-
-            //aq.DisplayPositiveConjunction(conjucntion);
-
-            //List<List<List<List<int?>>>> positiveStar = aq.TransformFullStarToNumericalPositiveFullStar(fullStar);
-
-            //aq.DisplayPositiveFullStar(positiveStar);
-
-            //aq.DisplayPositiveFullStarAsRule(positiveStar);
-
-
-            aq.ApplyAlgorithmOnData();
-
-            aq.DisplayResultingRule();
+            aq.EvaluateAlgorithm(evaluationData, true);
+            //aq.DisplayEvaluationResults();
 
         }
     }

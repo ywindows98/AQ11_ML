@@ -34,6 +34,16 @@ namespace AQ11v1
             ReadDataset();
         }
 
+        public Data(string datasetPath, string targetAttributeName, string targetAttributeValue, Dictionary<string, List<string>> attributesDict)
+        {
+            this.datasetPath = datasetPath;
+            this.targetAttributeName = targetAttributeName;
+            this.targetAttributeValue = targetAttributeValue;
+            this.AttributesDict = attributesDict;
+
+            ReadDatasetWithExistingDictionary();
+        }
+
         // Metóda, ktorá volá všetky potrebné metódy z predprocesora na úspešné načítanie údajov z datasetu a ich uloženie v rôznych variantoch.
         public void ReadDataset()
         {
@@ -52,7 +62,23 @@ namespace AQ11v1
             NumberOfColumns = Headers.Count;
             NumberOfRecords = Records.Count;
         }
-        
+
+        public void ReadDatasetWithExistingDictionary()
+        {
+            Headers = Preprocessor.GetHeaders(datasetPath);
+
+            recordsString = Preprocessor.GetRecordsString(datasetPath);
+
+            Records = Preprocessor.GetRecordsIndividualNumerical(recordsString, AttributesDict, Headers);
+
+            PositiveRecords = Preprocessor.GetPositiveRecords(Records, AttributesDict, Headers, targetAttributeName, targetAttributeValue);
+
+            NegativeRecords = Preprocessor.GetNegativeRecords(Records, AttributesDict, Headers, targetAttributeName, targetAttributeValue);
+
+            NumberOfColumns = Headers.Count;
+            NumberOfRecords = Records.Count;
+        }
+
         // Metóda na zobrazenie hlavičiek(atribútov) údajov v konzole.
         public void DisplayHeaders()
         {

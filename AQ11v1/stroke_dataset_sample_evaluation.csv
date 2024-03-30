@@ -1,0 +1,61 @@
+gender,age,hypertension,heart_disease,avg_glucose_level,smoking_status,stroke
+Male,80+,No,No,Very High,formerly smoked,Yes
+Male,61-80,Yes,Yes,Normal,never smoked,Yes
+Female,61-80,No,No,Normal,never smoked,Yes
+Female,61-80,No,No,Low,Unknown,Yes
+Female,80+,Yes,No,Normal,never smoked,Yes
+Male,61-80,No,Yes,Normal,never smoked,Yes
+Female,61-80,No,Yes,High,smokes,Yes
+Female,41-60,No,No,Normal,smokes,Yes
+Male,61-80,No,Yes,Very High,Unknown,Yes
+Male,41-60,No,No,High,Unknown,Yes
+Male,41-60,No,No,Low,never smoked,Yes
+Male,61-80,No,Yes,High,formerly smoked,Yes
+Male,61-80,No,Yes,Low,smokes,Yes
+Female,61-80,Yes,No,High,never smoked,Yes
+Female,41-60,No,No,Very High,never smoked,Yes
+Female,61-80,No,No,Normal,Unknown,Yes
+Male,61-80,Yes,Yes,Very High,never smoked,Yes
+Male,61-80,Yes,No,Normal,smokes,Yes
+Male,61-80,No,No,Normal,smokes,Yes
+Female,41-60,No,No,Normal,Unknown,Yes
+Female,21-40,No,No,Normal,formerly smoked,Yes
+Female,61-80,Yes,No,High,never smoked,Yes
+Female,61-80,No,No,Normal,never smoked,Yes
+Female,41-60,Yes,No,Low,Unknown,Yes
+Male,61-80,No,No,Very High,smokes,Yes
+Male,41-60,Yes,No,Very High,never smoked,Yes
+Female,61-80,No,No,Very High,Unknown,Yes
+Female,61-80,No,No,High,never smoked,Yes
+Male,61-80,Yes,No,Normal,formerly smoked,Yes
+Female,61-80,No,No,Normal,Unknown,Yes
+Female,0-20,No,No,Normal,Unknown,No
+Female,0-20,No,No,Normal,never smoked,No
+Female,21-40,No,No,Normal,Unknown,No
+Male,0-20,No,No,Low,Unknown,No
+Male,21-40,No,No,Low,Unknown,No
+Male,61-80,No,No,High,Unknown,No
+Female,80+,No,No,Low,never smoked,No
+Male,21-40,No,No,Normal,Unknown,No
+Female,41-60,No,No,Normal,never smoked,No
+Female,41-60,No,No,Low,formerly smoked,No
+Female,41-60,No,No,Normal,never smoked,No
+Male,21-40,No,No,High,Unknown,No
+Male,21-40,No,No,High,never smoked,No
+Female,61-80,No,No,Normal,smokes,No
+Male,41-60,Yes,No,Normal,smokes,No
+Female,41-60,No,No,Normal,never smoked,No
+Female,21-40,No,No,Normal,formerly smoked,No
+Male,0-20,No,No,Normal,Unknown,No
+Female,41-60,No,No,Normal,never smoked,No
+Male,0-20,No,No,High,Unknown,No
+Male,21-40,No,No,Low,never smoked,No
+Male,41-60,No,No,Normal,Unknown,No
+Female,41-60,No,No,Normal,Unknown,No
+Female,61-80,No,No,Very High,never smoked,No
+Male,41-60,No,No,High,formerly smoked,No
+Male,0-20,No,No,High,Unknown,No
+Female,41-60,No,No,Normal,never smoked,No
+Female,41-60,No,No,Normal,formerly smoked,No
+Male,41-60,No,No,Normal,Unknown,No
+Female,61-80,No,No,Normal,formerly smoked,No
