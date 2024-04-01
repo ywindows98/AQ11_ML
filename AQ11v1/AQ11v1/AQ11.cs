@@ -12,7 +12,7 @@ namespace AQ11v1
         public int NumberOfColumns { get; set; }
         public int NumberOfRecords { get; set; }
 
-        public Data LocalData { get; set; }
+        public Data LocalTrainingData { get; set; }
 
         public Data EvaluationData { get; set; }
         public List<List<List<int?>>> fullStar { get; set; }
@@ -35,19 +35,18 @@ namespace AQ11v1
         }
         public AQ11(Data data)
         {
-            LocalData = data;
-            NumberOfColumns = data.NumberOfColumns;
-            NumberOfRecords = data.NumberOfRecords;
+            SetData(data);
         }
 
-        // Metóda na nastavenie iného súboru údajov pre algoritmus.
+        // Metóda na nastavenie iného súboru údajov pre trenovanie algoritmu.
         public void SetData(Data data)
         {
-            LocalData = data;
+            LocalTrainingData = data;
             NumberOfColumns = data.NumberOfColumns;
             NumberOfRecords = data.NumberOfRecords;
         }
 
+        // Metóda na nastavenie iného súboru údajov pre hodnotenie algoritmu.
         public void SetEvaluationData(Data data)
         {
             EvaluationData = data;
@@ -57,7 +56,7 @@ namespace AQ11v1
         // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
         public void ApplyAlgorithmOnData(bool display=false)
         {
-            fullStar = CreateFullStarDisjunction(LocalData.PositiveRecords, LocalData.NegativeRecords);
+            fullStar = CreateFullStarDisjunction(LocalTrainingData.PositiveRecords, LocalTrainingData.NegativeRecords);
 
             PositiveFullStar = TransformFullStarToNumericalPositiveFullStar(fullStar);
 
@@ -70,11 +69,11 @@ namespace AQ11v1
         // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
         public void ApplyAlgorithmOnData(Data data, bool display=false)
         {
-            LocalData = data;
+            LocalTrainingData = data;
             NumberOfColumns = data.NumberOfColumns;
             NumberOfRecords = data.NumberOfRecords;
 
-            fullStar = CreateFullStarDisjunction(LocalData.PositiveRecords, LocalData.NegativeRecords);
+            fullStar = CreateFullStarDisjunction(LocalTrainingData.PositiveRecords, LocalTrainingData.NegativeRecords);
 
             PositiveFullStar = TransformFullStarToNumericalPositiveFullStar(fullStar);
 
@@ -83,8 +82,6 @@ namespace AQ11v1
                 DisplayResultingRule();
             }
         }
-
-
 
         // Metóda na zobrazenie výsledného pravidla vytvoreného algoritmom a uloženého v inštancii.
         public void DisplayResultingRule()
@@ -188,7 +185,7 @@ namespace AQ11v1
             return true;
         }
 
-        // Metóda aplikácie absorpčného zákona na čiastočnú obálku-Konjunkciu. Metóda odstraňuje akúkoľvek čiastočnú obálku-disjunkciu, ktorá môže byť absorbovaná z čiastočnej obálky-konjunkcie. Výstupom je zmenená čiastočná obálka-konjunkcia.
+        // Metóda aplikácie absorpčného zákona na čiastočnú obálku-konjunkciu. Metóda odstraňuje akúkoľvek čiastočnú obálku-disjunkciu, ktorá môže byť absorbovaná z čiastočnej obálky-konjunkcie. Výstupom je zmenená čiastočná obálka-konjunkcia.
         public List<List<int?>> ApplyAbsorptionLawOnConjunction(List<List<int?>> partialStarConjucntion)
         {
             List<List<int?>> absorptionList = new List<List<int?>>();
@@ -343,7 +340,7 @@ namespace AQ11v1
                     disjunctionTemp = new List<int?>();
                     if (negations[i]<0)
                     {
-                        maxIndex = LocalData.AttributesDict[LocalData.Headers[i + 1]].Count - 1; // -1 pretože v AttributeDict v každom zozname atributov mame na 0 pozicie null hodnoto pre zjednoduchšenie procesu.
+                        maxIndex = LocalTrainingData.AttributesDict[LocalTrainingData.Headers[i + 1]].Count - 1; // -1 pretože v AttributeDict v každom zozname atributov mame na 0 pozicie null hodnoto pre zjednoduchšenie procesu.
                         for (int j=1; j<=maxIndex; j++)
                         {
                             if (negations[i] * (-1) != j)
@@ -368,14 +365,14 @@ namespace AQ11v1
             return disjunctions;
         }
 
-        // Spôsob zobrazenia zoznamu pozitívnych disjunkcií.
+        // Metóda na zobrazenie zoznamu pozitívnych disjunkcií.
         public void DisplayPositiveDisjunctions(List<List<int?>> disjunctions)
         {
             Console.WriteLine("Disjunctions: ");
 
             for (int i = 0; i < disjunctions.Count; i++)
             {
-                Console.WriteLine($"Positive {LocalData.Headers[i + 1]} disjunction: ");
+                Console.WriteLine($"Positive {LocalTrainingData.Headers[i + 1]} disjunction: ");
                 for (int j = 0; j < disjunctions[i].Count; j++)
                 {
                     Console.Write($" {disjunctions[i][j]} |");
@@ -409,7 +406,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda transformácie prvkov envelop-disjunkcie na pozitívne. Výstup je plná obálka-disjunkcia iba s pozitivnymi hodnotami.
+        // Metóda transformácie prvkov obálky-disjunkcie na pozitívne. Výstup je plná obálka-disjunkcia iba s pozitivnymi hodnotami.
         // Disjuncton / Conjunctions / Disjunctions / Disjunctions
         public List<List<List<List<int?>>>> TransformFullStarToNumericalPositiveFullStar(List<List<List<int?>>> fullStar)
         {
@@ -471,7 +468,7 @@ namespace AQ11v1
                             {
                                 if (h != 0) Console.Write(" or ");
 
-                                Console.Write($"({LocalData.Headers[k+1]} : { LocalData.AttributesDict[LocalData.Headers[k+1]][(int)positiveStar[i][j][k][h]] })");
+                                Console.Write($"({LocalTrainingData.Headers[k+1]} : { LocalTrainingData.AttributesDict[LocalTrainingData.Headers[k+1]][(int)positiveStar[i][j][k][h]] })");
                             }
                         }
                     }
@@ -522,6 +519,18 @@ namespace AQ11v1
             for (int i=0; i<positiveStar.Count; i++)
             {
                 if (IsRecordCoveredByPositiveConjunction(record, positiveStar[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        public bool IsRecordCoveredByPositiveFullStar(List<int> record)
+        {
+            for (int i = 0; i < PositiveFullStar.Count; i++)
+            {
+                if (IsRecordCoveredByPositiveConjunction(record, PositiveFullStar[i]))
                 {
                     return true;
                 }

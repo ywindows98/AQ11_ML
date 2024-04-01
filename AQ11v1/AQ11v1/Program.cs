@@ -26,26 +26,27 @@ namespace AQ11v1
         {
             string mainProjectFolder = GetMainProjectFolder();
             //define dataset name and path
-            string datasetName = "stroke_dataset_sample_light.csv";
+            string datasetName = "stroke_dataset_sample.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine("Training dataset path: ");
             Console.WriteLine(datasetPath);
 
             // Načitame a prespracujeme data.
-            Data data = new Data(datasetPath, "stroke", "Yes");
+            Data trainingData = new Data(datasetPath, "stroke", "Yes");
 
             Console.WriteLine("==============================");
             Console.WriteLine("TRAINING DATASET: ");
             Console.WriteLine("==============================");
-            data.DisplayHeaders();
-            data.DisplayRecordsString();
+            trainingData.DisplayHeaders();
+            trainingData.DisplayRecordsString();
+            //data.DisplayNumericalRecords();
             Console.WriteLine("\n\n");
 
             // Vytvoríme inštanciu algoritmu a vložíme do nej dáta.
             AQ11 aq = new AQ11();
 
-            // Applikujeme algoritmus na dáta 
-            aq.ApplyAlgorithmOnData(data, true);
+            // Applikujeme algoritmus na dáta
+            aq.ApplyAlgorithmOnData(trainingData, true);
             //aq.DisplayResultingRule();
             //Console.WriteLine();
 
@@ -56,7 +57,7 @@ namespace AQ11v1
             Console.WriteLine(evaluationPath);
 
             // Načitame a prespracujeme data.
-            Data evaluationData = new Data(evaluationPath, "stroke", "Yes", aq.LocalData.AttributesDict);
+            Data evaluationData = new Data(evaluationPath, "stroke", "Yes", aq.LocalTrainingData.AttributesDict);
 
             //Console.WriteLine("==============================");
             //Console.WriteLine("EVALUATION DATASET: ");
@@ -67,6 +68,12 @@ namespace AQ11v1
 
             aq.EvaluateAlgorithm(evaluationData, true);
             //aq.DisplayEvaluationResults();
+
+
+
+            // Použitie algoritmu na jeden záznam
+            Console.WriteLine("\n\nGiving opinion on one record: ");
+            Console.WriteLine(aq.IsRecordCoveredByPositiveFullStar(evaluationData.Records[38]));
 
         }
     }

@@ -1,4 +1,4 @@
-gender,age,hypertension,heart_disease,work_type,residence_type,avg_glucose_level,smoking_status,stroke
+gender,age,hypertension,heart_disease,work_type,Residence_type,avg_glucose_level,smoking_status,stroke
 Male,61-80,No,Yes,Private,Urban,Very High,formerly smoked,Yes
 Female,61-80,No,No,Self-employed,Rural,Very High,never smoked,Yes
 Male,61-80,No,Yes,Private,Rural,Normal,never smoked,Yes
