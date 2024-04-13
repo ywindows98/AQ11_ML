@@ -25,7 +25,7 @@ namespace AQ11v1
         static void Main(string[] args)
         {
             string mainProjectFolder = GetMainProjectFolder();
-            //define dataset name and path
+            //definujeme nazov datasetu a cestu ku nemu
             string datasetName = "stroke_dataset_sample.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine("Training dataset path: ");

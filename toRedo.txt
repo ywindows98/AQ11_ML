@@ -1,0 +1,1 @@
+{{male, fem, male..}, {{ben,noben..}, {yes,no,yes...}}  =>  {{male, ben, yes}, {fem, noben, no}, {male, noben, no}}
