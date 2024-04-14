@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AQ11v1
-{
+{   
+    // Class represents the algorithm
     public class AQ11
     {
         public int NumberOfColumns { get; set; }
@@ -38,7 +39,7 @@ namespace AQ11v1
             SetData(data);
         }
 
-        // Metóda na nastavenie iného súboru údajov pre trenovanie algoritmu.
+        // Method to set another training data instance for an algorithm and to avctualize number of columns and number of records
         public void SetData(Data data)
         {
             LocalTrainingData = data;
@@ -46,14 +47,14 @@ namespace AQ11v1
             NumberOfRecords = data.NumberOfRecords;
         }
 
-        // Metóda na nastavenie iného súboru údajov pre hodnotenie algoritmu.
+        // Method to set another evaluation data instance for the algorithm
         public void SetEvaluationData(Data data)
         {
             EvaluationData = data;
         }
 
-        // Metóda aplikácie algoritmu na dáta, ktoré sú aktuálne uložené v inštancii AQ11.
-        // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
+        // Method to apply algirithm on data that are currently stored in the algorithm instance
+        // If display parameter is true, resulting rule will be displayed in the console automatically
         public void ApplyAlgorithmOnData(bool display=false)
         {
             fullStar = CreateFullStarDisjunction(LocalTrainingData.PositiveRecords, LocalTrainingData.NegativeRecords);
@@ -65,8 +66,9 @@ namespace AQ11v1
                 DisplayResultingRule();
             }
         }
-        // Metóda aplikácie algoritmu na externé dáta zadané ako parameter.
-        // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
+
+        // Method applies algorithm on data that are not currently stored in the AQ11 instance, but on new Data instance
+        // If display parameter is true, resulting rule will be displayed in the console automatically
         public void ApplyAlgorithmOnData(Data data, bool display=false)
         {
             LocalTrainingData = data;
@@ -83,17 +85,15 @@ namespace AQ11v1
             }
         }
 
-        // Metóda na zobrazenie výsledného pravidla vytvoreného algoritmom a uloženého v inštancii.
+        // Method to display in the console resulting rule that is stored in the instance
         public void DisplayResultingRule()
         {
             DisplayPositiveFullStarAsRule(PositiveFullStar);
             Console.WriteLine();
         }
 
-
-        // POMOCNE METÓDY PRE FUNGOVANIE ALGORIMU
-
-        // Metóda na vytvorenie čiastočnej hviezdy-disjunkcie (obálka G - pozitívny príklad voči kontrapríkladu) z jedného pozitívneho záznamu a jedného negatívneho záznamu. Výstupom je čiastočná obálka-disjunkcia.
+        // Method to create partial star disjunction(star G - positive example and counterexample)
+        // Output is the star that is represented as list of integer values
         public List<int?> CreatePartialStarDisjunction(List<int> positiveRecord, List<int> negativeRecord)
         {
             List<int?> partialStarDisjunction = new List<int?>();
@@ -127,7 +127,7 @@ namespace AQ11v1
             return partialStarDisjunction;
         }
 
-        // Metóda zobrazenia danej ako parameter obálky (obálka G - pozitívny príklad voči kontrapríkladu).
+        // Method to display given partial star disjuncion in the console
         public void DisplayPartialStarDisjunction(List<int?> partialStarDisjunction)
         {
             for (int i = 0; i < NumberOfColumns - 2; i++)
@@ -137,7 +137,8 @@ namespace AQ11v1
             Console.Write("\n");
         }
 
-        // Metóda na vytvorenie čiastočnej obálky-konjunkcie (obálka G - pozitívny príklad voči všetkým kontrapríkladom) z jedného pozitívneho záznamu a všetkych negatívnych záznamov. Výstupom je čiastočná obálka-konjunkcia.
+        // Method to create partial star conjunction (star G - positive example and all counterexamples)
+        // Output is a star represented as a list of lists with integer values
         public List<List<int?>> CreatePartialStarConjunction(List<int> positiveRecord, List<List<int>> negativeRecords)
         {
             List<List<int?>> partialStarConjunction = new List<List<int?>>();
@@ -154,7 +155,7 @@ namespace AQ11v1
             return partialStarConjunction;
         }
 
-        // Metóda zobrazenia danej ako parameter obálky (obálka G - pozitívny príklad voči všetkým kontrapríkladom).
+        // Method to display given partial star conjunction
         public void DisplayPartialStarConjunction(List<List<int?>> partialStarConjunction)
         {
             foreach (List<int?> star in partialStarConjunction)
@@ -163,7 +164,8 @@ namespace AQ11v1
             }
         }
 
-        // Metóda na kontrolu, či sekundárna obláka môže byť absorbovaná pomocou primárnej obálky. Obálky sú uvedené ako parametre. (obálka G - pozitívny príklad voči kontrapríkladu). Výstup je boolovská hodnota.
+        // Method to check if given secondary can be absorbed by given primary star. (star G - positive example and counterexample)
+        // Output is boolean value
         private bool CanBeAbsorbed(List<int?> primaryStar, List<int?> secondaryStar)
         {
             for (int i = 0; i < primaryStar.Count; i++)
@@ -184,8 +186,9 @@ namespace AQ11v1
             //Console.WriteLine();
             return true;
         }
-
-        // Metóda aplikácie absorpčného zákona na čiastočnú obálku-konjunkciu. Metóda odstraňuje akúkoľvek čiastočnú obálku-disjunkciu, ktorá môže byť absorbovaná z čiastočnej obálky-konjunkcie. Výstupom je zmenená čiastočná obálka-konjunkcia.
+        
+        // Method to apply absorption law on partial star conjunction. Method removes each partial star disjunction that can be absorbed
+        // Output is the partial star conjunction after the absorption law
         public List<List<int?>> ApplyAbsorptionLawOnConjunction(List<List<int?>> partialStarConjucntion)
         {
             List<List<int?>> absorptionList = new List<List<int?>>();
@@ -215,7 +218,8 @@ namespace AQ11v1
             return partialStarConjucntion;
         }
 
-        // Metóda kontroly, či konkrétny daný záznam je pokrytý danou čiastočnou obálkou-disjunkciou. Výstup je boolovská hodnota.
+        // Method to check if given record (example) is covered by given disjunction
+        // Outout is boolean value
         public bool IsRecordCoveredByDisjunction(List<int> record, List<int?> disjunction)
         {
             for (int i = 0; i < disjunction.Count; i++)
@@ -243,7 +247,7 @@ namespace AQ11v1
             return false;
         }
 
-        // Metóda zobrazenia konkrétneho daného záznamu, ktorý nebol pokrytý danou obálkovou disjunkciou.
+        // Method to display specific given record that was not covered by given disjunction
         public void DisplayNotCoverage(List<int> record, List<int?> disjunction)
         {
             Console.WriteLine("=====================");
@@ -260,7 +264,8 @@ namespace AQ11v1
             Console.WriteLine();
         }
 
-        // Metóda kontroly, či konkrétny daný záznam je pokrytý danou čiastkovou obálkou-konjunkciou. Výstup je boolovská hodnota.
+        // Method to check if given record is covered by given partial star conjunction
+        // Output is boolean value
         public bool IsRecordCoveredByConjunction(List<int> record, List<List<int?>> conjunction)
         {
             for(int i=0; i<conjunction.Count; i++)
@@ -274,7 +279,8 @@ namespace AQ11v1
             return true;
         }
 
-        // Metóda na výber záznamov, ktoré sú pokryté obálkou-konjunkciou, zo zoznamu záznamov. Pokryté záznamy sú uložené v druhom zozname. Výstupom je zoznam pokrytých záznamov.
+        // Method to select records that were covered by given conjunction from given records list
+        // Output is list of records
         public List<List<int>> SelectCoveredRecords(List<List<int>> records, List<List<int?>> conjunction)
         {
             List<List<int>> coveredRecords = new List<List<int>>();
@@ -290,7 +296,8 @@ namespace AQ11v1
             return coveredRecords;
         }
 
-        // Metóda na vytvorenie plnej obálky-disjunkcie. (obálka G - všetky pozitívne príklady voči všetkym kontrapríkladom). Výstup je plna obálka-disjunkcia.
+        // Method to create full star disjunction (star G - all positive examples and all negative counterexamples)
+        // Output is list of partial star conjunctions
         public List<List<List<int?>>> CreateFullStarDisjunction(List<List<int>> positiveRecords, List<List<int>> negativeRecords)
         {
             List<List<int>> positiveRecordsTemp = positiveRecords;
@@ -317,7 +324,7 @@ namespace AQ11v1
 
         }
 
-        // Metóda zobrazenia plnej obálkovej disjunkcie.
+        // Method to display full star disjunction in the console
         public void DisplayFullStarDisjunction(List<List<List<int?>>> fullStar)
         {
             foreach (List<List<int?>> conjunction in fullStar)
@@ -327,7 +334,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda transformuje každú negáciu v čiastočnej obál-disjunkcii na disjunkcie obsahujúce pozitivne hodnoty. Výstupom je zoznam samostatných pozitívnych disjunkcií pre každý atribút.
+        // Method to transform each negative value in partial star disjunction into new disjunction that contains positive values
         public List<List<int?>> TransformNegationsIntoDisjunctions(List<int?> negations)
         {
             List<List<int?>> disjunctions = new List<List<int?>>();
@@ -340,7 +347,7 @@ namespace AQ11v1
                     disjunctionTemp = new List<int?>();
                     if (negations[i]<0)
                     {
-                        maxIndex = LocalTrainingData.AttributesDict[LocalTrainingData.Headers[i + 1]].Count - 1; // -1 pretože v AttributeDict v každom zozname atributov mame na 0 pozicie null hodnoto pre zjednoduchšenie procesu.
+                        maxIndex = LocalTrainingData.AttributesDict[LocalTrainingData.Headers[i + 1]].Count - 1; // -1 because in AttributeDict in each list of attribute values we have null on index 0 for process simplification
                         for (int j=1; j<=maxIndex; j++)
                         {
                             if (negations[i] * (-1) != j)
@@ -365,7 +372,7 @@ namespace AQ11v1
             return disjunctions;
         }
 
-        // Metóda na zobrazenie zoznamu pozitívnych disjunkcií.
+        // Method to display list of positive disjunctions
         public void DisplayPositiveDisjunctions(List<List<int?>> disjunctions)
         {
             Console.WriteLine("Disjunctions: ");

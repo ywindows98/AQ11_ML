@@ -14,7 +14,7 @@ namespace AQ11v1
     internal class Program
     {
 
-        // Funkcia získa a vráti reťazec cesty do hlavného priečinka projektu
+        // Function finds and returns path to the main project folder for further use
         static string GetMainProjectFolder()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -25,13 +25,13 @@ namespace AQ11v1
         static void Main(string[] args)
         {
             string mainProjectFolder = GetMainProjectFolder();
-            //definujeme nazov datasetu a cestu ku nemu
+            // Define file name and path to it
             string datasetName = "stroke_dataset_sample.csv";
             string datasetPath = mainProjectFolder + '\\' + datasetName;
             Console.WriteLine("Training dataset path: ");
             Console.WriteLine(datasetPath);
 
-            // Načitame a prespracujeme data.
+            // Read and preprocess data
             Data trainingData = new Data(datasetPath, "stroke", "Yes");
 
             Console.WriteLine("==============================");
@@ -42,10 +42,10 @@ namespace AQ11v1
             //data.DisplayNumericalRecords();
             Console.WriteLine("\n\n");
 
-            // Vytvoríme inštanciu algoritmu a vložíme do nej dáta.
+            // Create the instance of an algorithm class
             AQ11 aq = new AQ11();
 
-            // Applikujeme algoritmus na dáta
+            // Apply algorithm on training data we created earlier
             aq.ApplyAlgorithmOnData(trainingData, true);
             //aq.DisplayResultingRule();
             //Console.WriteLine();
@@ -56,7 +56,7 @@ namespace AQ11v1
             Console.WriteLine("Evaluation dataset path: ");
             Console.WriteLine(evaluationPath);
 
-            // Načitame a prespracujeme data.
+            // Create and preprocess data
             Data evaluationData = new Data(evaluationPath, "stroke", "Yes", aq.LocalTrainingData.AttributesDict);
 
             //Console.WriteLine("==============================");
@@ -71,7 +71,7 @@ namespace AQ11v1
 
 
 
-            // Použitie algoritmu na jeden záznam
+            // Use algorithm on a single record
             Console.WriteLine("\n\nGiving opinion on one record: ");
             Console.WriteLine(aq.IsRecordCoveredByPositiveFullStar(evaluationData.Records[38]));
 

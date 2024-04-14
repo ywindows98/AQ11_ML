@@ -1,8 +1,0 @@
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\obj\Debug\AlphaAQ11.csproj.AssemblyReference.cache
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\obj\Debug\AlphaAQ11.csproj.SuggestedBindingRedirects.cache
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\obj\Debug\AlphaAQ11.csproj.CoreCompileInputs.cache
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\bin\Debug\AlphaAQ11.exe.config
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\bin\Debug\AlphaAQ11.exe
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\bin\Debug\AlphaAQ11.pdb
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\obj\Debug\AlphaAQ11.exe
-C:\Users\windo\Desktop\Projects\AQ11_ML\AlphaAQ11\AlphaAQ11\obj\Debug\AlphaAQ11.pdb

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace AQ11v1
 {
-    // Trieda vytvorená špeciálne na prácu so súborom csv a údajmi z neho extrahovanými
+    // Class created specifically to work with csv files and to preptocess extracted data
     public static class Preprocessor
     {
-        // Metóda získa názvy hlavičiek zo súboru csv a vráti zoznam reťazcov obsahujúcich názvy hlavičiek
+        // Methods gets names of headers (attributes) from the csv file and returns them as a list of string values
         public static List<string> GetHeaders(string datasetPath)
         {
-            // Používa metódy CsvHelper.
+            
             using (var reader = new StreamReader(datasetPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
@@ -28,8 +28,8 @@ namespace AQ11v1
             }
         }
 
-        // Metóda číta dáta zo súboru csv. Uloží údaje reťazca do Zoznamu zoznamov. Každý zoznam predstavuje stĺpec.
-        // K údajom sa pridá aj stĺpec id. Metóda vracia dáta reprezentované zoznamom zoznamov.
+        // Method reads data from csv file. Saves them into list of lists. Each list represents one column.
+        // Adding id column to data. Method returns data represented by list of lists.
         public static List<List<string>> GetRecordsString(string datasetPath)
         {
             using (var reader = new StreamReader(datasetPath))
@@ -52,7 +52,6 @@ namespace AQ11v1
                 {
                     records[0].Add(id.ToString());
                     id++;
-                    // Pridanie hodnôt z datasetu do každého zoznamu (stĺpca).
                     for (int i = 0; i < numberOfColumns; i++)
                     {
                         records[i + 1].Add(csv.GetField<string>(i));
@@ -65,8 +64,8 @@ namespace AQ11v1
             }
         }
 
-        // Metóda transformuje počiatočný zoznam zoznamov s nespracovanými dátami na zoznam obsahujúci každý jednotlivý záznam (prípad).
-        // Vráti zoznam zoznamov nového formátu.
+        // Method transforms starting list of list with unprocessed data to a list that contains each single record separatel.
+        // Returns list of lists in new format.
         public static List<List<string>> TransformRecordsIntoRecordsIndividual(List<List<string>> recordsString)
         {
             List<List<string>> recordsIndividual = new List<List<string>>();
@@ -77,7 +76,6 @@ namespace AQ11v1
             for (int i = 0; i < numberOfRecords; i++)
             {
                 recordsIndividual.Add(new List<string>());
-                // Pridanie všetkých hodnôt atribútov do každého jednotlivého záznamu.
                 for (int j = 0; j < numberOfColumns; j++)
                 {
                     recordsIndividual[i].Add(recordsString[j][i]);
@@ -87,17 +85,16 @@ namespace AQ11v1
             return recordsIndividual;
         }
 
-        // Metóda vytvorí slovník na univerzálne uloženie možných hodnôt atribútov a vráti ho. Kľúče sú názvy hlavičiek.
-        // indexovanie v setoch sa začina s 1 (0 element je null). Aby bolo ľahšie pracovať s negaciou atributov. 
+        // Method creates dictionary to universally store all possible attribute values and returns it. Keys are the names of the attributes (columns).
+        // Indexing in sets starts from 1 (0 element is null). It is made for the easier future work with coverting attribute values to negative (1 is positive value of attribute, and -1 is the same value but negative).
         public static Dictionary<string, List<string>> CreateAttributesDictionary(List<string> headers, List<List<string>> recordsString)
         {
             Dictionary<string, List<string>> attributesDict = new Dictionary<string, List<string>>();
             int numberOfColumns = recordsString.Count;
             List<string> attrValuesSet = new List<string>();
-            // Každému kľúču-hlavičke priradíme množinu jedinečných hodnôt atribútov.
+            // To each key (attribute) we assign a set of possible attribute values.
             for (int i = 1; i < numberOfColumns; i++)
             {
-                // Získanie všetkých možných hodnôt atribútu v zoznam(set).
                 attrValuesSet = recordsString[i].ToHashSet().ToList();
                 attrValuesSet.Insert(0, null);
                 attributesDict.Add(headers[i], attrValuesSet);
@@ -106,8 +103,8 @@ namespace AQ11v1
             return attributesDict;
         }
 
-        // Metóda prevodu záznamov reťazca na číselné. Každé číslo predstavuje index hodnoty atribútu v zozname uloženom v slovníku.
-        // Vráti Zoznam jednotlivých záznamov (zoznamov) s číselne zastúpenými hodnotami atribútov.
+        // Method converts string records into records that contain numbers that represent value of an attribute. Each number is an index of the value in the dictionary.
+        // Returns list of single records with integer-represented attribute values.
         public static List<List<int>> ConvertRecordsToInt(List<List<string>> recordsIndividual, Dictionary<string, List<string>> attributesDict, List<string> headers)
         {
             List<List<int>> recordsIndividualConverted = new List<List<int>>();
@@ -118,12 +115,12 @@ namespace AQ11v1
             for (int i = 0; i < numberOfRecords; i++)
             {
                 recordsIndividualConverted.Add(new List<int>());
-                // Skopíruje id
+                // Id is being copied
                 recordsIndividualConverted[i].Add(Int32.Parse(recordsIndividual[i][0]));
 
                 for (int j = 1; j < numberOfColumns; j++)
                 {
-                    // Ku každej hodnote atribútu reťazca nájdeme index tejto hodnoty uloženej v zozname v slovníku.
+                    // To each string value of an attribute we find index of this value in the list that is stored in the dictionary.
                     recordsIndividualConverted[i].Add(attributesDict[headers[j]].FindIndex(x => x == recordsIndividual[i][j]));
                 }
             }
@@ -131,8 +128,8 @@ namespace AQ11v1
             return recordsIndividualConverted;
         }
 
-        // Užitočná metóda na jednoduchšiu transformáciu reťazcových nespracovaných dát na jednotlivé číselné záznamy iba jedným volaním.
-        // Vráti Zoznam jednotlivých záznamov (zoznamov) s číselne zastúpenými hodnotami atribútov.
+        // Utiliry method for easier transformation of uprocessed string data into single numeric records with only one call..
+        // Returns list of numeric records (lists).
         public static List<List<int>> GetRecordsIndividualNumerical(List<List<string>> recordsString, Dictionary<string, List<string>> attributesDict, List<string> headers)
         {
             List<List<string>> recordsIndividual = TransformRecordsIntoRecordsIndividual(recordsString);
@@ -144,7 +141,7 @@ namespace AQ11v1
             return recordsIndividualConverted;
         }
 
-        // Metóda extrakcie pozitívnych záznamov(ktore chceme pokryť) zo zoznamu záznamov.
+        // Method to extract only positive records (ones we want to cover) from the list of records.
         public static List<List<int>> GetPositiveRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
         {
             int numberOfColumns = headers.Count;
@@ -175,7 +172,7 @@ namespace AQ11v1
             return positiveRecords;
         }
 
-        // Metóda extrakcie negatívnych záznamov(ktore nechceme pokryť) zo zoznamu záznamov.
+        // Method to extract only negative records (ones we don`t want to cover) from the list of records.
         public static List<List<int>> GetNegativeRecords(List<List<int>> recordsNumerical, Dictionary<string, List<string>> attributesDict, List<string> headers, string posAttributeName, string posAttributeValue)
         {
             int numberOfColumns = headers.Count;

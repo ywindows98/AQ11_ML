@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AQ11v1
 {
-    // Trieda, ktorá predstavuje údaje extrahované z datasetu.
+    // Class represents data that were extracted from csv dataset and prepared to be used by an algorithm
     public class Data
     {
         private string datasetPath;
@@ -44,7 +44,7 @@ namespace AQ11v1
             ReadDatasetWithExistingDictionary();
         }
 
-        // Metóda, ktorá volá všetky potrebné metódy z predprocesora na úspešné načítanie údajov z datasetu a ich uloženie v rôznych variantoch.
+        // Method that calls all needed methods from Preprocessor to successfully read data from dataset and store them in needed ways.
         public void ReadDataset()
         {
             Headers = Preprocessor.GetHeaders(datasetPath);
@@ -63,6 +63,9 @@ namespace AQ11v1
             NumberOfRecords = Records.Count;
         }
 
+        // Method that calls all needed methods from Preprocessor to successfully read data from dataset and store them in needed ways.
+        // This specific methods uses already existing dictionary that was assigned to this instance beforehand, for the numeric represented values to be synchronized with another existing Data instance.
+        // For example for numeric values to represent same attribute values in training Data instance and evaluation Data instance.
         public void ReadDatasetWithExistingDictionary()
         {
             Headers = Preprocessor.GetHeaders(datasetPath);
@@ -79,7 +82,7 @@ namespace AQ11v1
             NumberOfRecords = Records.Count;
         }
 
-        // Metóda na zobrazenie hlavičiek(atribútov) údajov v konzole.
+        // Method to display stored headers in the console
         public void DisplayHeaders()
         {
             string headersString = "";
@@ -90,7 +93,7 @@ namespace AQ11v1
             Console.WriteLine(headersString);
         }
 
-        // Metóda na zobrazenie reťazcových hodnôt záznamov extrahovaných z datasetu.
+        // Method to display string values of the records stored in the instance. (Displays whole dataset)
         public void DisplayRecordsString()
         {
             string outputRecord;
@@ -105,7 +108,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda na zobrazenie číselných záznamov.
+        // Method to display numeric records given as a parameter. (Displays whole dataset)
         public void DisplayNumericalRecords(List<List<int>> records)
         {
             string outputRecord;
@@ -120,19 +123,19 @@ namespace AQ11v1
             }
         }
 
-        // Metóda na zobrazenie číselných záznamov transformovaných z nespracovaných reťazcových údajov.
+        // Method to dysplay numeric records stored in the instance. (Displays whole dataset)
         public void DisplayNumericalRecords()
         {
             DisplayNumericalRecords(Records);
         }
 
-        // Metóda na zobrazenie pozitívnych číselných záznamov. (Ktore chceme pokryť)
+        // Method to display positive numeric records. (Ones we want to cover)
         public void DisplayPositiveRecords()
         {
             DisplayNumericalRecords(PositiveRecords);
         }
 
-        // Metóda na zobrazenie negatívnych číselných záznamov. (Ktore nechceme pokryť)
+        // Method to display negative numeric records. (Ones we don`t want to cover)
         public void DisplayNegativeRecords()
         {
             DisplayNumericalRecords(NegativeRecords);
