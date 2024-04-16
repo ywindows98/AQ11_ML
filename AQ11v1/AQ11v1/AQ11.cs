@@ -388,7 +388,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda, ktorá používa metódu "TransformNegationsIntoDisjunctions" na transformáciu negativnych disjunkcii v spojkách na pozitivne disjunkcie.
+        // Method that uses method TransformNegationsIntoDisjunctions to transform negative disjunctions in given conjunction into positive disjunctions
         public List<List<List<int?>>> TransformNegativeConjunctionIntoPositive(List<List<int?>> conjucntion)
         {
             List<List<List<int?>>> positiveConjunction = new List<List<List<int?>>>();
@@ -403,7 +403,7 @@ namespace AQ11v1
             return positiveConjunction;
         }
 
-        // Metóda zobrazenia konjunkcie s pozitivnymi disjunkciami.
+        // Method to display given conjunction with positive dinsjunctions in the console
         public void DisplayPositiveConjunction(List<List<List<int?>>> positiveConjucntion)
         {
             Console.WriteLine("Positive conjunction: ");
@@ -413,7 +413,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda transformácie prvkov obálky-disjunkcie na pozitívne. Výstup je plná obálka-disjunkcia iba s pozitivnymi hodnotami.
+        // Method to transform given full star with negative values into fullstart that contains positive values that specify the coverage
         // Disjuncton / Conjunctions / Disjunctions / Disjunctions
         public List<List<List<List<int?>>>> TransformFullStarToNumericalPositiveFullStar(List<List<List<int?>>> fullStar)
         {
@@ -426,7 +426,7 @@ namespace AQ11v1
             return positiveStar;
         }
 
-        // Metóda zobrazenia plnej obálky-disjunkcie.
+        // Method to display given full star disjunction in the console
         public void DisplayPositiveFullStar(List<List<List<List<int?>>>> positiveStar)
         {
             for(int i=0; i<positiveStar.Count; i++)
@@ -435,7 +435,7 @@ namespace AQ11v1
             }
         }
 
-        // Metóda na zobrazenie úplnej obálky-disjunkcie, ktorá obsahuje iba pozitivne hodnoty ako formátované pravidlo napísané v texte.
+        // Method to display given positive full star, as a formatted text rule that can be understood by a user, in the console.
         public void DisplayPositiveFullStarAsRule(List<List<List<List<int?>>>> positiveStar)
         {
             bool useOr = false;
@@ -485,9 +485,9 @@ namespace AQ11v1
         }
 
 
-        // METÓDY HODNOTENIA ALGORITHMU
+        // METHODS OF ALGORITHM EVALUATION
 
-        // Metóda kontroly či je záznam pokrytý jedinou pozitivnou disjunkciou.
+        // Method to check if given record is covered by the given positive disjunction (that contains other positive disjuntions)
         public bool IsRecordCoveredByPositiveDisjunction(List<int> record, List<List<int?>> disjunction)
         {
             for (int i = 1; i < record.Count-1; i++)
@@ -506,7 +506,7 @@ namespace AQ11v1
             return false;
         }
 
-        // Metóda kontroly, či je záznam pokrytý konjunkciou, ktorá obsahuje disjunkcie.
+        // Method to check if given record is covered by the given positive conjucntion that contains disjunctions
         public bool IsRecordCoveredByPositiveConjunction(List<int> record, List<List<List<int?>>> conjunction)
         {
             for (int i=0; i<conjunction.Count; i++)
@@ -520,7 +520,7 @@ namespace AQ11v1
             return true;
         }
 
-        // Metóda kontroly, či je záznam pokrytý celou pozitívnou obálkou.
+        // Method to check if given record is covered by the given positive full star
         public bool IsRecordCoveredByPositiveFullStar(List<int> record, List<List<List<List<int?>>>> positiveStar)
         {
             for (int i=0; i<positiveStar.Count; i++)
@@ -546,7 +546,7 @@ namespace AQ11v1
             return false;
         }
 
-        // Metóda vypočíta počet True Positive výsledkov vzhľadom na vstupné pozitívne záznamy a pozitívnu celu obálku.
+        // Method to calculate number of True Positive rusults given the list of positive records and positive full start that represents a rule
         public int GetNumberOfTruePositives(List<List<int>> positiveRecords, List<List<List<List<int?>>>> positiveStar)
         {
             int numberOfTP = 0;
@@ -563,7 +563,7 @@ namespace AQ11v1
             return numberOfTP;
         }
 
-        // Metóda vypočíta počet True Neagtive výsledkov vzhľadom na vstupné negatívne záznamy a pozitívnu celu obálku.
+        // Method to calculate number of True Negative rusults given the list of negative records and positive full start that represents a rule
         public int GetNumberOfTrueNegatives(List<List<int>> negativeRecords, List<List<List<List<int?>>>> positiveStar)
         {
             int numberOfTN =negativeRecords.Count;
@@ -580,7 +580,7 @@ namespace AQ11v1
             return numberOfTN;
         }
 
-        // Metóda vypočíta počet False Positive výsledkov vzhľadom na vstupné negatívne záznamy a pozitívnu celu obálku.
+        // Method to calculate number of False Positive rusults given the list of negative records and positive full start that represents a rules
         public int GetNumberOfFalsePositives(List<List<int>> negativeRecords, List<List<List<List<int?>>>> positiveStar)
         {
             int numberOfFP = 0;
@@ -595,7 +595,7 @@ namespace AQ11v1
             return numberOfFP;
         }
 
-        // Metóda vypočíta počet False Negative výsledkov vzhľadom na vstupné pozitívne záznamy a pozitívnu celu obálku.
+        // Method to calculate number of False Negative rusults given the list of positive records and positive full start that represents a rule
         public int GetNumberOfFalseNegatives(List<List<int>> positiveRecords, List<List<List<List<int?>>>> positiveStar)
         {
             int numberOfFN = positiveRecords.Count;
@@ -611,8 +611,9 @@ namespace AQ11v1
             return numberOfFN;
         }
 
-        // Metóda počíta počet TP, FP, FN, TN a Precision, Recall, F1, Accuracy pre uložené EvaluationData v inštancii algoritmu. A uloží výsledky do inštancie algoritmu.
-        // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
+        // Method calculates numbres of TP, FP, FN, TN and Precision, Recall, F1, Accuracy metrics for the positive full star (rule) and evaluation data that are currently stored in the algorithm instance
+        // Stores results in the instance of the algorithm
+        // If display parameter is true, resulting rule will be displayed in the console automatically
         public void EvaluateAlgorithm(bool display = false)
         {
             NumberOfTP = GetNumberOfTruePositives(EvaluationData.PositiveRecords, PositiveFullStar);
@@ -633,15 +634,17 @@ namespace AQ11v1
             }
         }
 
-        // Metóda vypočíta počet TP, FP, FN, TN a Precision, Recall, F1, Accuracy pre dané EvaluationData a uloží EvaluationData a výsledky do inštancie algoritmu.
-        // Parameter "display" je zodpovedný za rozhodnutie, či sa výsledky zobrazia v konzole.
+        // Method calculates numbres of TP, FP, FN, TN and Precision, Recall, F1, Accuracy metrics for the positive full star (rule) that is currently stored in the algorithm instance
+        // and for the given evaluation data as a parameter 
+        // Stores results in the instance of the algorithm
+        // If display parameter is true, resulting rule will be displayed in the console automatically
         public void EvaluateAlgorithm(Data evalData, bool display=false)
         {
             EvaluationData = evalData;
             EvaluateAlgorithm(display);
         }
 
-        // Metóda na zobrazenie výsledkov hodnotenia, ktoré sú uložené v inštancie algoritmu.
+        // Method to display in the console results of evaluation that are stored in the instance
         public void DisplayEvaluationResults()
         {
             Console.WriteLine("====================");
